@@ -16,7 +16,7 @@
       <div class="sidebar-menu-title">Menu</div>
       <ul class="sidebar-menu-list">
         <li class="sidebar-menu-item">
-          <a href="index.html" class="sidebar-menu-link active" id="menu-overview" title="Overview">
+          <a href="{{ route('admin.dasboard') }}" class="sidebar-menu-link active" id="menu-overview" title="Overview">
             <i class="bi bi-grid-fill"></i>
             <span>Admin Dashboard</span>
           </a>
@@ -35,31 +35,31 @@
           </a>
         </li>
         <li class="sidebar-menu-item">
-          <a href="#" class="sidebar-menu-link" id="menu-uiforms" title="Forms and Input">
+          <a href="{{ route('admin.student_list') }}" class="sidebar-menu-link" id="menu-uiforms" title="Forms and Input">
             <i class="bi bi-input-cursor-text"></i>
             <span>Student List</span>
           </a>
         </li>
         <li class="sidebar-menu-item">
-          <a href="ui-buttons.html" class="sidebar-menu-link" id="menu-uibuttons" title="Buttons">
+          <a href="{{ route('admin.teacher_create') }}" class="sidebar-menu-link" id="menu-uibuttons" title="Buttons">
             <i class="bi bi-menu-button-wide-fill"></i>
             <span>Lecturer Register</span>
           </a>
         </li>
         <li class="sidebar-menu-item">
-          <a href="ui-buttons.html" class="sidebar-menu-link" id="menu-uibuttons" title="Buttons">
+          <a href="{{ route('admin.teacher_list') }}" class="sidebar-menu-link" id="menu-uibuttons" title="Buttons">
             <i class="bi bi-menu-button-wide-fill"></i>
             <span>Lecturer List</span>
           </a>
         </li>
         <li class="sidebar-menu-item">
-          <a href="ui-buttons.html" class="sidebar-menu-link" id="menu-uibuttons" title="Buttons">
+          <a href="{{ route('admin.module_create') }}" class="sidebar-menu-link" id="menu-uibuttons" title="Buttons">
             <i class="bi bi-menu-button-wide-fill"></i>
             <span>Module Register</span>
           </a>
         </li>
         <li class="sidebar-menu-item">
-          <a href="ui-buttons.html" class="sidebar-menu-link" id="menu-uibuttons" title="Buttons">
+          <a href="{{ route('admin.module_list') }}" class="sidebar-menu-link" id="menu-uibuttons" title="Buttons">
             <i class="bi bi-menu-button-wide-fill"></i>
             <span>Module List</span>
           </a>
@@ -95,7 +95,7 @@
 
   <!-- Sidebar Profile Card (Dynamic Footer) -->
   <div class="sidebar-profile">
-    <img src="assets/images/avatar.png" alt="Administrator" class="sidebar-profile-img"
+    <img src="{{asset('assets/images/avatar.png')}}" alt="Administrator" class="sidebar-profile-img"
       onerror="this.src='https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=256&auto=format&fit=crop'">
     <div class="sidebar-profile-info">
       <div class="sidebar-profile-name">Administrator</div>

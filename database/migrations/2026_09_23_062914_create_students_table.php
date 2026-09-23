@@ -16,8 +16,10 @@ return new class extends Migration
             $table->string('reg_no');
             $table->string('name');
             $table->string('phone_number');
+            $table->string('email');
             $table->string('address');
             $table->date('birth_date');
+            $table->string('password');
             $table->timestamps();
         });
     }

@@ -10,6 +10,7 @@ class Student extends Model
         'reg_no',
         'name',
         'phone_number',
+        'email',
         'address',
         'birth_date',
     ];
