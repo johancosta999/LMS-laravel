@@ -30,7 +30,7 @@ class AdminController extends Controller
         return view("SubjectList");
     }
 
-    public function module_register(){
+    public function module_create(){
         return view("SubjectRegister");
     }
 }

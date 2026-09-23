@@ -2507,6 +2507,235 @@ span.flatpickr-weekday {
     cursor: not-allowed;
 }
 
+/* Student registration page */
+.registration-page {
+    padding-bottom: 2rem;
+}
+
+.registration-page-header {
+    align-items: flex-end;
+    margin-bottom: 2rem;
+}
+
+.registration-eyebrow,
+.registration-section-label {
+    color: var(--brand-forest-medium);
+    font-size: 0.7rem;
+    font-weight: 800;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+}
+
+.registration-eyebrow {
+    align-items: center;
+    display: flex;
+    gap: 0.45rem;
+    margin-bottom: 0.7rem;
+}
+
+.registration-eyebrow i {
+    color: var(--brand-lime);
+    font-size: 0.95rem;
+}
+
+.registration-back-link {
+    align-items: center;
+    background-color: #FFFFFF;
+    border: 1px solid var(--border-light);
+    border-radius: var(--radius-md);
+    color: var(--brand-forest-medium);
+    display: inline-flex;
+    font-size: 0.8rem;
+    font-weight: 700;
+    gap: 0.55rem;
+    padding: 0.7rem 0.95rem;
+    transition: all 0.2s ease;
+}
+
+.registration-back-link:hover {
+    background-color: var(--brand-forest-medium);
+    border-color: var(--brand-forest-medium);
+    color: #FFFFFF;
+    transform: translateX(-2px);
+}
+
+.registration-intro-card {
+    background: linear-gradient(145deg, var(--brand-forest-medium), var(--brand-forest-dark));
+    border-radius: var(--radius-xxl);
+    box-shadow: var(--shadow-lg);
+    color: #FFFFFF;
+    height: 100%;
+    min-height: 420px;
+    overflow: hidden;
+    padding: 2rem;
+    position: relative;
+}
+
+.registration-intro-card::after {
+    border: 1px solid rgba(180, 241, 5, 0.2);
+    border-radius: 50%;
+    content: '';
+    height: 220px;
+    position: absolute;
+    right: -90px;
+    top: -75px;
+    width: 220px;
+}
+
+.registration-icon {
+    align-items: center;
+    background-color: var(--brand-lime);
+    border-radius: var(--radius-lg);
+    color: var(--brand-forest-dark);
+    display: inline-flex;
+    font-size: 1.35rem;
+    height: 3.25rem;
+    justify-content: center;
+    margin-bottom: 2.5rem;
+    position: relative;
+    width: 3.25rem;
+    z-index: 1;
+}
+
+.registration-intro-card h2 {
+    color: #FFFFFF;
+    font-size: 1.55rem;
+    margin-bottom: 0.85rem;
+    max-width: 15rem;
+    position: relative;
+    z-index: 1;
+}
+
+.registration-intro-card > p {
+    color: rgba(255, 255, 255, 0.7);
+    font-size: 0.88rem;
+    line-height: 1.7;
+    margin-bottom: 2rem;
+    max-width: 23rem;
+    position: relative;
+    z-index: 1;
+}
+
+.registration-checklist {
+    border-top: 1px solid rgba(255, 255, 255, 0.12);
+    display: grid;
+    gap: 1rem;
+    padding-top: 1.5rem;
+    position: relative;
+    z-index: 1;
+}
+
+.registration-checklist div {
+    align-items: center;
+    color: rgba(255, 255, 255, 0.82);
+    display: flex;
+    font-size: 0.78rem;
+    gap: 0.7rem;
+}
+
+.registration-checklist i {
+    color: var(--brand-lime);
+    font-size: 1rem;
+}
+
+.registration-form-card {
+    height: 100%;
+    margin-bottom: 0;
+    padding: 2rem;
+}
+
+.registration-form-heading {
+    align-items: flex-end;
+    border-bottom: 1px solid var(--border-light);
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 1.75rem;
+    padding-bottom: 1.25rem;
+}
+
+.registration-form-heading h2 {
+    font-size: 1.25rem;
+    margin: 0.35rem 0 0;
+}
+
+.registration-required-note {
+    color: var(--text-muted-green);
+    font-size: 0.72rem;
+}
+
+.registration-required-note span {
+    color: var(--sys-red);
+    font-weight: 800;
+}
+
+.registration-form-card .form-label {
+    color: var(--text-main);
+    font-size: 0.78rem;
+    font-weight: 700;
+}
+
+.registration-form-card .form-control {
+    border-color: rgba(11, 19, 15, 0.12);
+    border-radius: var(--radius-md);
+    min-height: 2.8rem;
+    padding: 0.7rem 0.9rem;
+}
+
+.registration-form-card .form-control:focus {
+    border-color: var(--brand-forest-medium);
+    box-shadow: 0 0 0 3px rgba(7, 47, 31, 0.08);
+}
+
+.registration-form-card .form-text {
+    color: var(--text-muted-green);
+    font-size: 0.7rem;
+    margin-top: 0.45rem;
+}
+
+.registration-form-card .form-check {
+    margin-top: 0.15rem;
+}
+
+.registration-form-card .btn-primary {
+    background-color: var(--brand-forest-medium);
+    border-color: var(--brand-forest-medium);
+    border-radius: var(--radius-md);
+    font-size: 0.82rem;
+    font-weight: 700;
+    padding: 0.75rem 1.4rem;
+}
+
+.registration-form-card .btn-primary:hover {
+    background-color: var(--brand-forest-dark);
+    border-color: var(--brand-forest-dark);
+}
+
+@media (max-width: 768px) {
+    .registration-page-header {
+        align-items: flex-start;
+    }
+
+    .registration-back-link {
+        width: 100%;
+        justify-content: center;
+    }
+
+    .registration-intro-card {
+        min-height: 0;
+    }
+
+    .registration-form-card,
+    .registration-intro-card {
+        padding: 1.35rem;
+    }
+
+    .registration-form-heading {
+        align-items: flex-start;
+        flex-direction: column;
+        gap: 0.7rem;
+    }
+}
+
 /* Sizing overrides */
 .form-control-custom-sm {
     padding: 0.35rem 0.75rem;
