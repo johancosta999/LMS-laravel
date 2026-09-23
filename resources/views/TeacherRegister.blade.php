@@ -43,7 +43,8 @@
                         <span class="registration-required-note"><span>*</span> Required fields</span>
                     </div>
 
-                    <form>
+                    <form action="{{ route('admin.createTeacher') }}" method="post">
+                        @csrf
                         <div class="row g-4">
                             <div class="col-md-6">
                                 <div class="mb-3">
@@ -82,7 +83,7 @@
 
                                 <div class="mb-3">
                                     <label for="age" class="form-label">Enter Age: </label>
-                                    <input type="date" name="age" name="birth_date" placeholder="Enter age" class="form-control"
+                                    <input type="number" name="age" name="birth_date" placeholder="Enter age" class="form-control"
                                         id="age">
                                 </div>
 

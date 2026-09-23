@@ -40,7 +40,8 @@
                         <span class="registration-required-note"><span>*</span> Required fields</span>
                     </div>
 
-                    <form>
+                    <form action="{{ route('admin.createModule') }}" method="post">
+                        @csrf
                         <div class="row g-4">
                             <div class="col-md-6">
                                 <div class="mb-3">
@@ -64,9 +65,10 @@
                             <div class="col-md-6">
                                 <div class="mb-3">
                                     <label for="exampleInputEmail1" class="form-label">Assigned lectures: </label>
-                                    <input type="text" name="assigned_lecturers" class="form-control" id="assigned_lecturers"
-                                        aria-describedby="emailHelp">
-                                    <div id="assigned_lecturers" class="form-text">We'll never share your email with anyone else.
+                                    <input type="text" name="assigned_lecturers" class="form-control"
+                                        id="assigned_lecturers" aria-describedby="emailHelp">
+                                    <div id="assigned_lecturers" class="form-text">We'll never share your email with anyone
+                                        else.
                                     </div>
                                 </div>
                             </div>

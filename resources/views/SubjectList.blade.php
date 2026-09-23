@@ -31,30 +31,22 @@
                         <thead class="thead-dark">
                             <tr>
                                 <th scope="col">#</th>
-                                <th scope="col">First</th>
-                                <th scope="col">Last</th>
-                                <th scope="col">Handle</th>
+                                <th scope="col">Module Id</th>
+                                <th scope="col">Name</th>
+                                <th scope="col"># of Lectures</th>
+                                <th scope="col">Assigned Lecturers</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <th scope="row">1</th>
-                                <td>Mark</td>
-                                <td>Otto</td>
-                                <td>@mdo</td>
+                            @foreach ($modules as $module)
+                                <tr>
+                                <td>{{ $module->id }}</td>
+                                <td>{{ $module->module_id }}</td>
+                                <td>{{ $module->name }}</td>
+                                <td>{{ $module->lectures_count }}</td>
+                                <td>{{ $module->assigned_lecturers }}</td>
                             </tr>
-                            <tr>
-                                <th scope="row">2</th>
-                                <td>Jacob</td>
-                                <td>Thornton</td>
-                                <td>@fat</td>
-                            </tr>
-                            <tr>
-                                <th scope="row">3</th>
-                                <td>Larry</td>
-                                <td>the Bird</td>
-                                <td>@twitter</td>
-                            </tr>
+                            @endforeach
                         </tbody>
                     </table>
             </div>
