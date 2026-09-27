@@ -35,7 +35,7 @@
                                 <th scope="col">Email</th>
                                 <th scope="col">Address</th>
                                 <th scope="col">Date of Birth</th>
-
+                                <th scope="col">Actions</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -47,6 +47,10 @@
                                 <td>{{ $student ->email }}</td>
                                 <td>{{ $student ->address }}</td>
                                 <td>{{ $student ->birth_date }}</td>
+                                <td>
+                                    <button>Update</button>
+                                    <button>Delete</button>
+                                </td>
                             </tr>
                             @endforeach
                         </tbody>

@@ -35,6 +35,7 @@
                                 <th scope="col">Name</th>
                                 <th scope="col"># of Lectures</th>
                                 <th scope="col">Assigned Lecturers</th>
+                                <th scope="col">Actions</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -45,6 +46,10 @@
                                 <td>{{ $module->name }}</td>
                                 <td>{{ $module->lectures_count }}</td>
                                 <td>{{ $module->assigned_lecturers }}</td>
+                                <td>
+                                    <button>Update</button>
+                                    <button>Delete</button>
+                                </td>
                             </tr>
                             @endforeach
                         </tbody>
