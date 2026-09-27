@@ -31,6 +31,7 @@
                             <tr>
                                 <th scope="col">Id</th>
                                 <th scope="col">Registration No</th>
+                                <th scope="col">Name</th>
                                 <th scope="col">Phone No</th>
                                 <th scope="col">Email</th>
                                 <th scope="col">Address</th>
@@ -43,13 +44,14 @@
                             <tr>
                                 <td>{{ $student ->id }}</td>
                                 <td>{{ $student ->reg_no }}</td>
+                                <td>{{ $student ->name }}</td>
                                 <td>{{ $student ->phone_number }}</td>
                                 <td>{{ $student ->email }}</td>
                                 <td>{{ $student ->address }}</td>
                                 <td>{{ $student ->birth_date }}</td>
                                 <td>
-                                    <button>Update</button>
-                                    <button>Delete</button>
+                                    <a href="{{ route('student.edit', $student->id ) }}" class="btn btn-warning btn-sm">Update</a>
+                                    <a href="{{ route('student.delete', $student->id ) }}" class="btn btn-danger btn-sm">Delete</a>
                                 </td>
                             </tr>
                             @endforeach

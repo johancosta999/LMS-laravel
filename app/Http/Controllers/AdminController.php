@@ -58,6 +58,53 @@ class AdminController extends Controller
         }
     }
 
+    public function deleteStudent($id) {
+        try{
+            Student::query()
+                ->where("id", $id)
+                ->delete();
+            return redirect() -> route("admin.student_list");
+
+        } catch (\Exception $e) {
+            return $e;
+        }
+    }
+
+    public function editStudent(){
+        try{
+
+        } catch (\Exception $e) {
+            return $e;
+        }
+    }
+    
+    public function edit($id){
+        $student = Student::query()
+            ->where("id", $id) 
+            ->first();
+
+        return view("StudentUpdate", compact("student"));
+    }
+
+    public function updateStudent(Request $request) {
+        try{
+            Student::query()
+            ->where("id", $request->id)
+            ->update([
+                "reg_no" => $request->reg_no,
+                "name"=> $request->name,
+                "phone_number"=> $request->phone_number,
+                "email"=> $request->email,
+                "address"=> $request->address,
+                "birth_date" => $request -> birth_date,
+            ]);;
+            return redirect() -> route("admin.student_list");
+        } catch (\Exception $e) {
+            return $e;
+        }
+    }
+    
+
     public function createTeacher(Request $request) {
         try{
             Teacher::query() -> create([
@@ -90,7 +137,5 @@ class AdminController extends Controller
         } catch (\Exception $e) {
             return $e;
         } 
-
     }
-
 }
