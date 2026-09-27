@@ -1,6 +1,6 @@
 @extends('app')
 @push('title')
-    Student Register
+    Student Update
 @endpush
 @section('content')
     <div class="container-fluid registration-page px-0">
@@ -40,34 +40,47 @@
                         <span class="registration-required-note"><span>*</span> Required fields</span>
                     </div>
 
-                    <form action="{{ route('admin.createStudent') }}" method="post">
+                    <form action="{{ route('student.update') }}" method="post">
                         @csrf
+                        <input type="hidden" name="id" value="{{ $student->id }}">
                         <div class="row g-4">
                             <div class="col-md-6">
                                 <div class="mb-3">
                                     <label for="reg_no" class="form-label">Register No: </label>
                                     <input type="text" name="reg_no" placeholder="Enter registration number"
-                                        class="form-control" id="reg_no">
+                                        class="form-control" 
+                                        value="{{ $student->reg_no }}"
+                                        id="reg_no"
+                                        required>
                                 </div>
 
                                 <div class="mb-3">
                                     <label for="name" class="form-label">Full Name: </label>
                                     <input type="text" name="name" placeholder="Enter name with initials"
-                                        class="form-control" id="name">
+                                        class="form-control"
+                                        value="{{ $student->name }}" 
+                                        id="name"
+                                        required>
                                 </div>
 
                                 <div class="mb-3">
                                     <label for="phone_number" class="form-label">Enter phone number : </label>
                                     <input type="text" name="phone_number" placeholder="Enter phone number"
-                                        class="form-control" id="phone_number">
+                                        class="form-control" 
+                                        value="{{ $student->phone_number }}"
+                                        id="phone_number"
+                                        required>
                                 </div>
                             </div>
 
                             <div class="col-md-6">
                                 <div class="mb-3">
                                     <label for="exampleInputEmail1" class="form-label">Email address</label>
-                                    <input type="email" name="email" class="form-control" id="exampleInputEmail1"
-                                        aria-describedby="emailHelp">
+                                    <input type="email" name="email" class="form-control" 
+                                    value="{{ $student->email }}"
+                                    id="exampleInputEmail1"
+                                        aria-describedby="emailHelp"
+                                    required>
                                     <div id="emailHelp" class="form-text">We'll never share your email with anyone else.
                                     </div>
                                 </div>
@@ -75,28 +88,21 @@
                                 <div class="mb-3">
                                     <label for="address" class="form-label">Enter address: </label>
                                     <input type="text" name="address" placeholder="Enter address" class="form-control"
-                                        id="address">
+                                    value="{{ $student->address }}"
+                                        id="address"
+                                    required>
                                 </div>
 
                                 <div class="mb-3">
                                     <label for="birth_date" class="form-label">Enter birth date: </label>
                                     <input type="date" name="birth_date" placeholder="Enter birth date" class="form-control"
-                                        id="birth_date">
+                                    value="{{ $student->birth_date }}"
+                                        id="birth_date"
+                                    required>
                                 </div>
                             </div>
 
-                            <div class="col-12">
-                                <div class="mb-3">
-                                    <label for="exampleInputPassword1" class="form-label">Password</label>
-                                    <input type="password" name="password" class="form-control" id="exampleInputPassword1">
-                                </div>
-
-                                <div class="mb-3 form-check">
-                                    <input type="checkbox" class="form-check-input" id="exampleCheck1">
-                                    <label class="form-check-label" for="exampleCheck1">Check me out</label>
-                                </div>
-
-                                <button type="submit" class="btn btn-primary">Submit</button>
+                                <button type="submit" class="btn btn-warning">Update</button>
                             </div>
                         </div>
                     </form>
