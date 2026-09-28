@@ -9,25 +9,36 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', [AdminController::class, 'dashboard'])->name('admin.dasboard');
 
-Route::prefix('admin')->group(function () {
+Route::prefix('student')->group(function () {
     //student routes
-    Route::get('/student/create', [StudentController::class, 'student_create'])->name('student.student_create');
-    Route::post('/student/save', [StudentController::class, 'createStudent'])->name('student.createStudent');
+    Route::get('create', [StudentController::class, 'student_create'])->name('student.student_create');
+    Route::post('/save', [StudentController::class, 'createStudent'])->name('student.createStudent');
 
-    Route::get('/student/list', [StudentController::class, 'student_list'])->name('student.student_list');
+    Route::get('/list', [StudentController::class, 'student_list'])->name('student.student_list');
 
-    Route::get('/student/delete/{id}', [StudentController::class, 'deleteStudent'])->name('student.delete');
+    Route::get('/delete/{id}', [StudentController::class, 'deleteStudent'])->name('student.delete');
 
-    Route::get('/student/edit/{id}', [StudentController::class,'edit'])->name('student.edit');
-    Route::post('/student/update', [StudentController::class,'updateStudent'])->name('student.update');
+    Route::get('/edit/{id}', [StudentController::class, 'edit'])->name('student.edit');
+    Route::post('/update', [StudentController::class, 'updateStudent'])->name('student.update');
+});
 
+Route::prefix('lecturer')->group(function () {
     //teacher routes
-    Route::post('/lecturer/save', [TeacherController::class, 'createTeacher'])->name('teacher.createTeacher');
-    Route::get('/lecturer/create', [TeacherController::class, 'teacher_create'])->name('teacher.teacher_create');
-    Route::get('/lecturer/list', [TeacherController::class, 'teacher_list'])->name('teacher.teacher_list');
+    Route::post('/save', [TeacherController::class, 'createTeacher'])->name('teacher.createTeacher');
+    Route::get('/create', [TeacherController::class, 'teacher_create'])->name('teacher.teacher_create');
+    Route::get('/list', [TeacherController::class, 'teacher_list'])->name('teacher.teacher_list');
+    Route::get('/edit/{id}', [TeacherController::class, 'edit'])->name('teacher.edit');
+    Route::post('/update', [TeacherController::class, 'updateTeacher'])->name('teacher.update');
+    Route::get('/delete/{id}', [TeacherController::class, 'deleteTeacher'])->name('teacher.delete');
+});
+
+Route::prefix('module')->group(function () {
 
     //subject routes
-    Route::post('/module/save', [SubjectController::class, 'createModule'])->name('subject.createModule');
-    Route::get('/module/create', [SubjectController::class, 'module_create'])->name('subject.module_create');
-    Route::get('/module/list', [SubjectController::class, 'module_list'])->name('subject.module_list');
+    Route::post('/save', [SubjectController::class, 'createModule'])->name('subject.createModule');
+    Route::get('/create', [SubjectController::class, 'module_create'])->name('subject.module_create');
+    Route::get('/list', [SubjectController::class, 'module_list'])->name('subject.module_list');
+    Route::get('/edit/{id}', [SubjectController::class, 'edit'])->name('module.edit');
+    Route::post('/update', [SubjectController::class, 'updateSubject'])->name('module.update');
+    Route::get('/delete/{id}', [SubjectController::class, 'deleteSubject'])->name('module.delete');
 });

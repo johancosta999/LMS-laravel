@@ -47,8 +47,8 @@
                                 <td>{{ $module->lectures_count }}</td>
                                 <td>{{ $module->assigned_lecturers }}</td>
                                 <td>
-                                    <button>Update</button>
-                                    <button>Delete</button>
+                                    <a href="{{ route('module.edit', $module->id ) }}" class="btn btn-warning btn-sm">Update</a>
+                                    <a href="{{ route('module.delete', $module->id ) }}" class="btn btn-danger btn-sm">Delete</a>
                                 </td>
                             </tr>
                             @endforeach

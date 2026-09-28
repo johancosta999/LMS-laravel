@@ -34,4 +34,45 @@ class TeacherController extends Controller
             return $e;
         }
     }
+
+    public function edit($id){
+        $teacher = Teacher::query()
+            ->where("id", $id) 
+            ->first();
+
+        return view("TeacherUpdate", compact("teacher"));
+    }
+
+    public function updateTeacher(Request $request) {
+        try{
+            Teacher::query()
+            ->where("id", $request->id)
+            ->update([
+                "lecturer_id"=> $request->lecturer_id,
+                "name"=> $request->name,
+                "phone_number"=> $request->phone_number,
+                "email"=> $request->email,
+                "address"=> $request->address,
+                "age"=> $request -> age,
+                "subjects"=> $request -> subjects,
+                "password"=> $request -> password,
+            ]);;
+            return redirect() -> route("student.student_list");
+        } catch (\Exception $e) {
+            return $e;
+        }
+    }
+
+    public function deleteTeacher($id) {
+        try{
+            Teacher::query()
+                ->where("id", $id)
+                ->delete();
+            return redirect() -> route("teacher.teacher_list");
+
+        } catch (\Exception $e) {
+            return $e;
+        }
+    }
+    
 }

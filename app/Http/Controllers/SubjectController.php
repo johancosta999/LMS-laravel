@@ -30,4 +30,42 @@ class SubjectController extends Controller
             return $e;
         } 
     }
+
+    public function edit($id){
+        $module = Subject::query()
+            ->where("id", $id) 
+            ->first();
+
+        return view("SubjectUpdate", compact("module"));
+    }
+
+    public function updateSubject(Request $request) {
+        try{
+            Subject::query()
+            ->where("id", $request->id)
+            ->update([
+                "reg_no" => $request->reg_no,
+                "name"=> $request->name,
+                "phone_number"=> $request->phone_number,
+                "email"=> $request->email,
+                "address"=> $request->address,
+                "birth_date" => $request -> birth_date,
+            ]);;
+            return redirect() -> route("subject.subject_list");
+        } catch (\Exception $e) {
+            return $e;
+        }
+    }
+
+    public function deleteSubject($id) {
+        try{
+            Subject::query()
+                ->where("id", $id)
+                ->delete();
+            return redirect() -> route("subject.subject_list");
+
+        } catch (\Exception $e) {
+            return $e;
+        }
+    }
 }

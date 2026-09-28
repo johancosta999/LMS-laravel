@@ -45,14 +45,6 @@ class StudentController extends Controller
             return $e;
         }
     }
-
-    public function editStudent(){
-        try{
-
-        } catch (\Exception $e) {
-            return $e;
-        }
-    }
     
     public function edit($id){
         $student = Student::query()
