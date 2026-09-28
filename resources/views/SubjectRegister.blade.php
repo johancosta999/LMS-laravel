@@ -40,7 +40,7 @@
                         <span class="registration-required-note"><span>*</span> Required fields</span>
                     </div>
 
-                    <form action="{{ route('admin.createModule') }}" method="post">
+                    <form action="{{ route('subject.createModule') }}" method="post">
                         @csrf
                         <div class="row g-4">
                             <div class="col-md-6">
