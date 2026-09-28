@@ -1,14 +1,16 @@
 @extends('app')
+
 @push('title')
-    Student Register
+    Lecturer Register
 @endpush
+
 @section('content')
     <div class="container-fluid registration-page px-0">
         <div class="page-header registration-page-header">
             <div>
                 <div class="registration-eyebrow"><i class="bi bi-person-plus-fill"></i> Student management</div>
-                <h1 class="page-title">Register a student</h1>
-                <p class="page-subtitle">Create a student profile and keep their academic records organised.</p>
+                <h1 class="page-title">Register a lecturer</h1>
+                <p class="page-subtitle">Create a lecturer profile and keep their academic records organised.</p>
             </div>
             <a href="{{ route('admin.dasboard') }}" class="registration-back-link">
                 <i class="bi bi-arrow-left"></i>
@@ -20,10 +22,11 @@
             <div class="col-xl-4">
                 <aside class="registration-intro-card">
                     <div class="registration-icon"><i class="bi bi-person-vcard"></i></div>
-                    <h2>New student profile</h2>
-                    <p>Enter the student's details below. You can update their information later from the student list.</p>
+                    <h2>New lecturer profile</h2>
+                    <p>Enter the lecturer's details below. You can update their information later from the lecturer list.
+                    </p>
                     <div class="registration-checklist">
-                        <div><i class="bi bi-check2-circle"></i><span>Use the student's official details</span></div>
+                        <div><i class="bi bi-check2-circle"></i><span>Use the lecturer's official details</span></div>
                         <div><i class="bi bi-check2-circle"></i><span>Keep contact information current</span></div>
                         <div><i class="bi bi-shield-check"></i><span>Information is stored securely</span></div>
                     </div>
@@ -34,32 +37,36 @@
                 <div class="card registration-form-card">
                     <div class="registration-form-heading">
                         <div>
-                            <span class="registration-section-label">Student details</span>
+                            <span class="registration-section-label">Lecturer details</span>
                             <h2>Personal information</h2>
                         </div>
                         <span class="registration-required-note"><span>*</span> Required fields</span>
                     </div>
 
-                    <form action="{{ route('student.createStudent') }}" method="post">
+                    <form action="{{ route('teacher.update') }}" method="post">
                         @csrf
+                        <input type="hidden" name="id" value="{{ $teacher->id }}">
                         <div class="row g-4">
                             <div class="col-md-6">
                                 <div class="mb-3">
-                                    <label for="reg_no" class="form-label">Register No: </label>
-                                    <input type="text" name="reg_no" placeholder="Enter registration number"
-                                        class="form-control" id="reg_no">
+                                    <label for="reg_no" class="form-label">Lecturer Id: </label>
+                                    <input type="text" name="lecturer_id" name="lecturer_id" placeholder="Enter lecturer id"
+                                        class="form-control" id="lecturer_id"
+                                        value="{{ $teacher->lecturer_id }}">
                                 </div>
 
                                 <div class="mb-3">
                                     <label for="name" class="form-label">Full Name: </label>
-                                    <input type="text" name="name" placeholder="Enter name with initials"
-                                        class="form-control" id="name">
+                                    <input type="text" name="name" name="name" placeholder="Enter name with initials"
+                                        class="form-control" id="name"
+                                        value="{{ $teacher->name }}">
                                 </div>
 
                                 <div class="mb-3">
                                     <label for="phone_number" class="form-label">Enter phone number : </label>
-                                    <input type="text" name="phone_number" placeholder="Enter phone number"
-                                        class="form-control" id="phone_number">
+                                    <input type="text" name="phone_number" name="phone_number"
+                                        placeholder="Enter phone number" class="form-control" id="phone_number"
+                                        value="{{ $teacher->phone_number }}">
                                 </div>
                             </div>
 
@@ -67,36 +74,36 @@
                                 <div class="mb-3">
                                     <label for="exampleInputEmail1" class="form-label">Email address</label>
                                     <input type="email" name="email" class="form-control" id="exampleInputEmail1"
-                                        aria-describedby="emailHelp">
+                                        aria-describedby="emailHelp"
+                                        value="{{ $teacher->email }}">
                                     <div id="emailHelp" class="form-text">We'll never share your email with anyone else.
                                     </div>
                                 </div>
 
                                 <div class="mb-3">
                                     <label for="address" class="form-label">Enter address: </label>
-                                    <input type="text" name="address" placeholder="Enter address" class="form-control"
-                                        id="address">
+                                    <input type="text" name="address" name="address" placeholder="Enter address"
+                                        class="form-control" id="address"
+                                        value="{{ $teacher->address }}">
                                 </div>
 
                                 <div class="mb-3">
-                                    <label for="birth_date" class="form-label">Enter birth date: </label>
-                                    <input type="date" name="birth_date" placeholder="Enter birth date" class="form-control"
-                                        id="birth_date">
+                                    <label for="age" class="form-label">Enter Age: </label>
+                                    <input type="number" name="age" name="birth_date" placeholder="Enter age"
+                                        class="form-control" id="age"
+                                        value="{{ $teacher->age }}">
+                                </div>
+
+                                <div class="mb-3">
+                                    <label for="subjects" class="form-label">Modules: </label>
+                                    <input type="text" name="subjects" name="subjects" placeholder="Enter modules trained"
+                                        class="form-control" id="subjects"
+                                        value="{{ $teacher->subjects }}">
                                 </div>
                             </div>
 
                             <div class="col-12">
-                                <div class="mb-3">
-                                    <label for="exampleInputPassword1" class="form-label">Password</label>
-                                    <input type="password" name="password" class="form-control" id="exampleInputPassword1">
-                                </div>
-
-                                <div class="mb-3 form-check">
-                                    <input type="checkbox" class="form-check-input" id="exampleCheck1">
-                                    <label class="form-check-label" for="exampleCheck1">Check me out</label>
-                                </div>
-
-                                <button type="submit" class="btn btn-primary">Submit</button>
+                                <button type="submit" class="btn btn-warning">Update</button>
                             </div>
                         </div>
                     </form>

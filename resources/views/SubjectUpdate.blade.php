@@ -40,25 +40,29 @@
                         <span class="registration-required-note"><span>*</span> Required fields</span>
                     </div>
 
-                    <form action="{{ route('subject.createModule') }}" method="post">
+                    <form action="{{ route('subject.update') }}" method="post">
                         @csrf
+                        <input type="hidden" name="id" value="{{ $module->id }}">
                         <div class="row g-4">
                             <div class="col-md-6">
                                 <div class="mb-3">
                                     <label for="reg_no" class="form-label">Module Id: </label>
                                     <input type="text" name="module_id" placeholder="Enter module id" class="form-control"
-                                        id="reg_no">
+                                        id="reg_no"
+                                        value="{{ $module->module_id }}">
                                 </div>
 
                                 <div class="mb-3">
                                     <label for="name" class="form-label">Name: </label>
-                                    <input type="text" name="name" placeholder="Enter name" class="form-control" id="name">
+                                    <input type="text" name="name" placeholder="Enter name" class="form-control" id="name"
+                                    value="{{ $module->name }}">
                                 </div>
 
                                 <div class="mb-3">
                                     <label for="phone_number" class="form-label">Number of lectures: </label>
                                     <input type="number" name="lectures_count" placeholder="Enter number of lectures"
-                                        class="form-control" id="lectures_count">
+                                        class="form-control" id="lectures_count"
+                                        value="{{ $module->lectures_count }}">
                                 </div>
                             </div>
 
@@ -66,7 +70,8 @@
                                 <div class="mb-3">
                                     <label for="exampleInputEmail1" class="form-label">Assigned lectures: </label>
                                     <input type="text" name="assigned_lecturers" class="form-control"
-                                        id="assigned_lecturers" aria-describedby="emailHelp">
+                                        id="assigned_lecturers" aria-describedby="emailHelp"
+                                        value="{{ $module->assigned_lecturers }}">
                                     <div id="assigned_lecturers" class="form-text">We'll never share your email with anyone
                                         else.
                                     </div>
@@ -75,12 +80,7 @@
 
                             <div class="col-12">
 
-                                <div class="mb-3 form-check">
-                                    <input type="checkbox" class="form-check-input" id="exampleCheck1">
-                                    <label class="form-check-label" for="exampleCheck1">Check me out</label>
-                                </div>
-
-                                <button type="submit" class="btn btn-primary">Submit</button>
+                                <button type="submit" class="btn btn-warning">Update</button>
                             </div>
                         </div>
                     </form>

@@ -29,37 +29,37 @@
       <div class="sidebar-menu-title">Components</div>
       <ul class="sidebar-menu-list">
         <li class="sidebar-menu-item">
-          <a href="{{ route('admin.student_create') }}" class="sidebar-menu-link" id="menu-basictables" title="Basic Tables">
+          <a href="{{ route('student.student_create') }}" class="sidebar-menu-link" id="menu-basictables" title="Basic Tables">
             <i class="bi bi-table"></i>
             <span>Student Register</span>
           </a>
         </li>
         <li class="sidebar-menu-item">
-          <a href="{{ route('admin.student_list') }}" class="sidebar-menu-link" id="menu-uiforms" title="Forms and Input">
+          <a href="{{ route('student.student_list') }}" class="sidebar-menu-link" id="menu-uiforms" title="Forms and Input">
             <i class="bi bi-input-cursor-text"></i>
             <span>Student List</span>
           </a>
         </li>
         <li class="sidebar-menu-item">
-          <a href="{{ route('admin.teacher_create') }}" class="sidebar-menu-link" id="menu-uibuttons" title="Buttons">
+          <a href="{{ route('teacher.teacher_create') }}" class="sidebar-menu-link" id="menu-uibuttons" title="Buttons">
             <i class="bi bi-menu-button-wide-fill"></i>
             <span>Lecturer Register</span>
           </a>
         </li>
         <li class="sidebar-menu-item">
-          <a href="{{ route('admin.teacher_list') }}" class="sidebar-menu-link" id="menu-uibuttons" title="Buttons">
+          <a href="{{ route('teacher.teacher_list') }}" class="sidebar-menu-link" id="menu-uibuttons" title="Buttons">
             <i class="bi bi-menu-button-wide-fill"></i>
             <span>Lecturer List</span>
           </a>
         </li>
         <li class="sidebar-menu-item">
-          <a href="{{ route('admin.module_create') }}" class="sidebar-menu-link" id="menu-uibuttons" title="Buttons">
+          <a href="{{ route('subject.module_create') }}" class="sidebar-menu-link" id="menu-uibuttons" title="Buttons">
             <i class="bi bi-menu-button-wide-fill"></i>
             <span>Module Register</span>
           </a>
         </li>
         <li class="sidebar-menu-item">
-          <a href="{{ route('admin.module_list') }}" class="sidebar-menu-link" id="menu-uibuttons" title="Buttons">
+          <a href="{{ route('subject.module_list') }}" class="sidebar-menu-link" id="menu-uibuttons" title="Buttons">
             <i class="bi bi-menu-button-wide-fill"></i>
             <span>Module List</span>
           </a>

@@ -43,13 +43,13 @@
                         <span class="registration-required-note"><span>*</span> Required fields</span>
                     </div>
 
-                    <form action="{{ route('admin.createTeacher') }}" method="post">
+                    <form action="{{ route('teacher.createTeacher') }}" method="post">
                         @csrf
                         <div class="row g-4">
                             <div class="col-md-6">
                                 <div class="mb-3">
                                     <label for="reg_no" class="form-label">Lecturer Id: </label>
-                                    <input type="text" name="lecturer_id" name="reg_no" placeholder="Enter lecturer id"
+                                    <input type="text" name="lecturer_id" name="lecturer_id" placeholder="Enter lecturer id"
                                         class="form-control" id="reg_no">
                                 </div>
 

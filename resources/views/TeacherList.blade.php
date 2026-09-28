@@ -53,8 +53,8 @@
                                 <td>{{ $teacher->age }}</td>
                                 <td>{{ $teacher->subjects }}</td>
                                 <td>
-                                    <button>Update</button>
-                                    <button>Delete</button>
+                                    <a href="{{ route('teacher.edit', $teacher->id ) }}" class="btn btn-warning btn-sm">Update</a>
+                                    <a href="{{ route('teacher.delete', $teacher->id ) }}" class="btn btn-danger btn-sm">Delete</a>
                                 </td>
                             </tr>
                         @endforeach
