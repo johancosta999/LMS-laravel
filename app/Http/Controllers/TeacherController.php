@@ -55,9 +55,8 @@ class TeacherController extends Controller
                 "address"=> $request->address,
                 "age"=> $request -> age,
                 "subjects"=> $request -> subjects,
-                "password"=> $request -> password,
-            ]);;
-            return redirect() -> route("student.student_list");
+            ]);
+            return redirect() -> route("teacher.teacher_list");
         } catch (\Exception $e) {
             return $e;
         }

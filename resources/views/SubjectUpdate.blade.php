@@ -40,7 +40,7 @@
                         <span class="registration-required-note"><span>*</span> Required fields</span>
                     </div>
 
-                    <form action="{{ route('subject.createModule') }}" method="post">
+                    <form action="{{ route('subject.update') }}" method="post">
                         @csrf
                         <input type="hidden" name="id" value="{{ $module->id }}">
                         <div class="row g-4">

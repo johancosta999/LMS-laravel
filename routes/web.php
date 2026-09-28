@@ -38,7 +38,7 @@ Route::prefix('module')->group(function () {
     Route::post('/save', [SubjectController::class, 'createModule'])->name('subject.createModule');
     Route::get('/create', [SubjectController::class, 'module_create'])->name('subject.module_create');
     Route::get('/list', [SubjectController::class, 'module_list'])->name('subject.module_list');
-    Route::get('/edit/{id}', [SubjectController::class, 'edit'])->name('module.edit');
-    Route::post('/update', [SubjectController::class, 'updateSubject'])->name('module.update');
-    Route::get('/delete/{id}', [SubjectController::class, 'deleteSubject'])->name('module.delete');
+    Route::get('/edit/{id}', [SubjectController::class, 'edit'])->name('subject.edit');
+    Route::post('/update', [SubjectController::class, 'updateSubject'])->name('subject.update');
+    Route::get('/delete/{id}', [SubjectController::class, 'deleteSubject'])->name('subject.delete');
 });

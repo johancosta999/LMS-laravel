@@ -44,14 +44,12 @@ class SubjectController extends Controller
             Subject::query()
             ->where("id", $request->id)
             ->update([
-                "reg_no" => $request->reg_no,
+                "module_id"=> $request->module_id,
                 "name"=> $request->name,
-                "phone_number"=> $request->phone_number,
-                "email"=> $request->email,
-                "address"=> $request->address,
-                "birth_date" => $request -> birth_date,
+                "lectures_count"=> $request->lectures_count,
+                "assigned_lecturers"=> $request->assigned_lecturers,
             ]);;
-            return redirect() -> route("subject.subject_list");
+            return redirect() -> route("subject.module_list");
         } catch (\Exception $e) {
             return $e;
         }
@@ -62,7 +60,7 @@ class SubjectController extends Controller
             Subject::query()
                 ->where("id", $id)
                 ->delete();
-            return redirect() -> route("subject.subject_list");
+            return redirect() -> route("subject.module_list");
 
         } catch (\Exception $e) {
             return $e;
