@@ -19,6 +19,7 @@ return new class extends Migration
             $table->string('email');
             $table->string('address');
             $table->date('birth_date');
+            $table->string('image');
             $table->string('password');
             $table->timestamps();
         });

@@ -40,7 +40,7 @@
                         <span class="registration-required-note"><span>*</span> Required fields</span>
                     </div>
 
-                    <form action="{{ route('student.createStudent') }}" method="post">
+                    <form action="{{ route('student.createStudent') }}" method="post" enctype="multipart/form-data">
                         @csrf
                         <div class="row g-4">
                             <div class="col-md-6">
@@ -82,6 +82,13 @@
                                     <label for="birth_date" class="form-label">Enter birth date: </label>
                                     <input type="date" name="birth_date" placeholder="Enter birth date" class="form-control"
                                         id="birth_date">
+                                </div>
+
+                                <div class="mb-3">
+                                    <label for="image" class="form-label">Upload image: </label>
+                                    <input type="file" name="image" class="form-control"
+                                    id="image"
+                                    required>
                                 </div>
                             </div>
 

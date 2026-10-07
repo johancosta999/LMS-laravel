@@ -19,6 +19,9 @@ class StudentController extends Controller
 
     public function createStudent(Request $request) {
         try{
+
+            $imagePath = ImageUploader::imageUploader($request->file("image"), 'Student/profile');
+
             Student::query() ->create([
                 "reg_no" => $request->reg_no,
                 "name"=> $request->name,
@@ -26,6 +29,7 @@ class StudentController extends Controller
                 "email"=> $request->email,
                 "address"=> $request->address,
                 "birth_date" => $request -> birth_date,
+                "image"=> $imagePath,
                 "password" => $request -> password,
             ]);
             return redirect() -> route("student.student_list");
