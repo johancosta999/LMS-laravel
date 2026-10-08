@@ -88,7 +88,11 @@
                                     <label for="image" class="form-label">Upload image: </label>
                                     <input type="file" name="image" class="form-control"
                                     id="image"
+                                    accept="image/jpeg,image/png,image/gif,image/webp"
                                     required>
+                                    @error('image')
+                                        <div class="text-danger mt-1">{{ $message }}</div>
+                                    @enderror
                                 </div>
                             </div>
 

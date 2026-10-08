@@ -11,10 +11,16 @@
                 <h1 class="page-title">Registered students</h1>
                 <p class="page-subtitle">Information of all students registered.</p>
             </div>
-            <a href="{{ route('admin.dasboard') }}" class="registration-back-link">
-                <i class="bi bi-arrow-left"></i>
-                <span>Back to dashboard</span>
-            </a>
+            <div class="registration-header-actions">
+                <a href="{{ route('admin.dasboard') }}" class="registration-back-link">
+                    <i class="bi bi-arrow-left"></i>
+                    <span>Back to dashboard</span>
+                </a>
+                <a href="{{ route('student.idCard') }}" class="registration-back-link">
+                    <i class="bi"></i>
+                    <span>View Student IDs</span>
+                </a>
+            </div>
         </div>
 
         <div class="col-12">

@@ -18,8 +18,11 @@ class StudentController extends Controller
     }
 
     public function createStudent(Request $request) {
-        try{
+        $request->validate([
+            'image' => ['required', 'image', 'mimes:jpeg,jpg,png,gif,webp', 'max:2048'],
+        ]);
 
+        try{
             $imagePath = ImageUploader::imageUploader($request->file("image"), 'Student/profile');
 
             Student::query() ->create([
@@ -73,6 +76,16 @@ class StudentController extends Controller
             return redirect() -> route("student.student_list");
         } catch (\Exception $e) {
             return $e;
+        }
+    }
+
+    public function student_id(){
+        try{
+            $students = Student::all();
+            return view("StudentId", compact("students"));
+
+        } catch (\Exception $e) {
+
         }
     }
     

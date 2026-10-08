@@ -41,6 +41,12 @@
           </a>
         </li>
         <li class="sidebar-menu-item">
+          <a href="{{ route('student.idCard') }}" class="sidebar-menu-link" id="menu-uiforms" title="Forms and Input">
+            <i class="bi bi-input-cursor-text"></i>
+            <span>Student IDs</span>
+          </a>
+        </li>
+        <li class="sidebar-menu-item">
           <a href="{{ route('teacher.teacher_create') }}" class="sidebar-menu-link" id="menu-uibuttons" title="Buttons">
             <i class="bi bi-menu-button-wide-fill"></i>
             <span>Lecturer Register</span>

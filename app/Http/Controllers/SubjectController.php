@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Student;
 use Illuminate\Http\Request;
 use App\Models\Subject;
 
@@ -66,4 +67,7 @@ class SubjectController extends Controller
             return $e;
         }
     }
+
+    
+    
 }

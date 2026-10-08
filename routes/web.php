@@ -20,6 +20,7 @@ Route::prefix('student')->group(function () {
 
     Route::get('/edit/{id}', [StudentController::class, 'edit'])->name('student.edit');
     Route::post('/update', [StudentController::class, 'updateStudent'])->name('student.update');
+    Route::get('/image-list', [StudentController::class, 'student_id'])->name('student.idCard');
 });
 
 Route::prefix('lecturer')->group(function () {
