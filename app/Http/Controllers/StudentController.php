@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 use App\Models\Student;
 
 class StudentController extends Controller
@@ -33,7 +34,7 @@ class StudentController extends Controller
                 "address"=> $request->address,
                 "birth_date" => $request -> birth_date,
                 "image"=> $imagePath,
-                "password" => $request -> password,
+                "password" => Hash::make($request->password),
             ]);
             return redirect() -> route("student.student_list");
         } catch (\Exception $e) {

@@ -5,3 +5,5 @@
 
 <!-- Local dashboard interactions controller -->
 <script src="{{asset('assets/js/dashboard.js')}}"></script>
+
+@stack('script')

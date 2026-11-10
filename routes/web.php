@@ -1,26 +1,35 @@
 <?php
 
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\LoginController;
 use App\Http\Controllers\StudentController;
 use App\Http\Controllers\TeacherController;
 use App\Http\Controllers\SubjectController;
 
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', [AdminController::class, 'dashboard'])->name('admin.dasboard');
+Route::get('/', [LoginController::class, 'login'])->name('login');
+Route::post('/login-check', [LoginController::class, 'loginCheck'])->name('login.check');
+
+Route::get('/admin', [AdminController::class, 'dashboard'])->name('admin.dasboard');
 
 Route::prefix('student')->group(function () {
-    //student routes
-    Route::get('create', [StudentController::class, 'student_create'])->name('student.student_create');
-    Route::post('/save', [StudentController::class, 'createStudent'])->name('student.createStudent');
+    Route::middleware('auth:student')->group(function () {
+        Route::get('/dashboard', [AdminController::class, 'dashboard'])->name('student.dashboard');
 
-    Route::get('/list', [StudentController::class, 'student_list'])->name('student.student_list');
+        //student routes
+        Route::get('create', [StudentController::class, 'student_create'])->name('student.student_create');
+        Route::post('/save', [StudentController::class, 'createStudent'])->name('student.createStudent');
 
-    Route::get('/delete/{id}', [StudentController::class, 'deleteStudent'])->name('student.delete');
+        Route::get('/list', [StudentController::class, 'student_list'])->name('student.student_list');
 
-    Route::get('/edit/{id}', [StudentController::class, 'edit'])->name('student.edit');
-    Route::post('/update', [StudentController::class, 'updateStudent'])->name('student.update');
-    Route::get('/image-list', [StudentController::class, 'student_id'])->name('student.idCard');
+        Route::get('/delete/{id}', [StudentController::class, 'deleteStudent'])->name('student.delete');
+
+        Route::get('/edit/{id}', [StudentController::class, 'edit'])->name('student.edit');
+        Route::post('/update', [StudentController::class, 'updateStudent'])->name('student.update');
+        Route::get('/image-list', [StudentController::class, 'student_id'])->name('student.idCard');
+        Route::post('/logout', [LoginController::class, 'logout'])->name('student.logout');
+    });
 });
 
 Route::prefix('lecturer')->group(function () {
