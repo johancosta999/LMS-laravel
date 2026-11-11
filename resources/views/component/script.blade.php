@@ -6,4 +6,5 @@
 <!-- Local dashboard interactions controller -->
 <script src="{{asset('assets/js/dashboard.js')}}"></script>
 
+@livewireScripts
 @stack('script')

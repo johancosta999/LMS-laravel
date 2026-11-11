@@ -23,4 +23,5 @@
   <!-- Main Design System & Custom Stylesheet -->
   <link rel="stylesheet" href="{{asset('assets/css/main.css')}}">
   @stack('css')
+  @livewireStyles
 </head>

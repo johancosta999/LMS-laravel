@@ -16,6 +16,16 @@
             </a>
         </div>
 
+        <div class="row g-4">
+            <div class="col-lg-4">
+                @livewire('student-reg-form')
+            </div>
+            <div class="col-lg-8">
+                @livewire('student-list-table')
+            </div>
+        </div>
+
+        {{-- OLD non-Livewire form (posts to student.createStudent) - kept for comparison
         <div class="row g-4 align-items-stretch">
             <div class="col-xl-4">
                 <aside class="registration-intro-card">
@@ -114,5 +124,6 @@
                 </div>
             </div>
         </div>
+        --}}
     </div>
 @endsection
