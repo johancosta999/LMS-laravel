@@ -3,8 +3,10 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use App\Models\Student;
+use App\Models\User;
 
 class StudentController extends Controller
 {
@@ -36,6 +38,15 @@ class StudentController extends Controller
                 "image"=> $imagePath,
                 "password" => Hash::make($request->password),
             ]);
+
+            // login account with the student role
+            User::query()->create([
+                "name" => $request->name,
+                "email" => $request->email,
+                "role" => "student",
+                "password" => Hash::make($request->password),
+            ]);
+
             return redirect() -> route("student.student_list");
         } catch (\Exception $e) {
             return $e;
@@ -44,9 +55,15 @@ class StudentController extends Controller
 
     public function deleteStudent($id) {
         try{
-            Student::query()
-                ->where("id", $id)
+            $student = Student::query()->where("id", $id)->first();
+
+            // remove the login account too
+            User::query()
+                ->where("email", $student->email)
+                ->where("role", "student")
                 ->delete();
+
+            $student->delete();
             return redirect() -> route("student.student_list");
 
         } catch (\Exception $e) {
@@ -64,6 +81,17 @@ class StudentController extends Controller
 
     public function updateStudent(Request $request) {
         try{
+            $student = Student::query()->where("id", $request->id)->first();
+
+            // keep the login account name/email same as the student
+            User::query()
+                ->where("email", $student->email)
+                ->where("role", "student")
+                ->update([
+                    "name" => $request->name,
+                    "email" => $request->email,
+                ]);
+
             Student::query()
             ->where("id", $request->id)
             ->update([
@@ -78,6 +106,15 @@ class StudentController extends Controller
         } catch (\Exception $e) {
             return $e;
         }
+    }
+
+    public function dashboard(){
+        // logged in user -> matching student record (same email)
+        $student = Student::query()
+            ->where("email", Auth::user()->email)
+            ->first();
+
+        return view("StudentDashboard", compact("student"));
     }
 
     public function student_id(){

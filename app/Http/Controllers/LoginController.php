@@ -5,13 +5,13 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
-use App\Models\Student;
+use App\Models\User;
 
 class LoginController extends Controller
 {
     public function login(){
-        if (Auth::guard('student')->check()) {
-            return redirect()->route('student.dashboard');
+        if (Auth::check()) {
+            return $this->redirectByRole(Auth::user()->role);
         }
 
         return view('login');
@@ -24,13 +24,14 @@ class LoginController extends Controller
                 'password' => ['required'],
             ]);
 
-            $student = Student::query()->where('email', $request->email)->first();
+            // find the user by email, the role tells us which dashboard to open
+            $user = User::query()->where('email', $request->email)->first();
 
-            if ($student && Hash::check($request->password, $student->password)) {
-                Auth::guard('student')->login($student);
+            if ($user && Hash::check($request->password, $user->password)) {
+                Auth::login($user);
                 $request->session()->regenerate();
 
-                return redirect()->route('student.dashboard');
+                return $this->redirectByRole($user->role);
             }
 
             return redirect()->route('login')
@@ -43,10 +44,22 @@ class LoginController extends Controller
 
     public function logout(Request $request)
     {
-        Auth::guard('student')->logout();
+        Auth::logout();
         $request->session()->invalidate();
         $request->session()->regenerateToken();
 
         return redirect()->route('login');
+    }
+
+    private function redirectByRole($role){
+        if ($role == 'admin') {
+            return redirect()->route('admin.dasboard');
+        }
+
+        if ($role == 'teacher') {
+            return redirect()->route('teacher.dashboard');
+        }
+
+        return redirect()->route('student.dashboard');
     }
 }

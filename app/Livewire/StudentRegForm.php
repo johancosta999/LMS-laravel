@@ -3,6 +3,7 @@
 namespace App\Livewire;
 
 use App\Models\Student;
+use App\Models\User;
 use Illuminate\Support\Facades\Hash;
 use Livewire\Component;
 use Livewire\WithFileUploads;
@@ -25,7 +26,7 @@ class StudentRegForm extends Component
         return [
             'reg_no' => 'required|unique:students,reg_no',
             'name' => 'required',
-            'email' => 'required|email|unique:students,email',
+            'email' => 'required|email|unique:students,email|unique:users,email',
             'password' => 'required|min:6',
             'dob' => 'required|date',
             'phone' => 'required',
@@ -50,6 +51,14 @@ class StudentRegForm extends Component
             "address" => $this->address,
             "birth_date" => $this->dob,
             "image" => $imagePath,
+            "password" => Hash::make($this->password),
+        ]);
+
+        // login account with the student role
+        User::query()->create([
+            "name" => $this->name,
+            "email" => $this->email,
+            "role" => "student",
             "password" => Hash::make($this->password),
         ]);
 

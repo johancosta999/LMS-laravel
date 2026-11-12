@@ -17,11 +17,8 @@
         </div>
 
         <div class="row g-4">
-            <div class="col-lg-4">
+            <div class="col-lg-8 col-xl-6">
                 @livewire('student-reg-form')
-            </div>
-            <div class="col-lg-8">
-                @livewire('student-list-table')
             </div>
         </div>
 

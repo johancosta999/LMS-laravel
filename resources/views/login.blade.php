@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Student Login</title>
+    <title>LMS Login</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <style>
         body {
@@ -24,7 +24,7 @@
 <body class="d-flex align-items-center justify-content-center">
     <main class="card login-card p-4">
         <div class="text-center mb-4">
-            <h1 class="h4 mb-2">Student sign in</h1>
+            <h1 class="h4 mb-2">Sign in</h1>
             <p class="text-secondary mb-0">Use your registered email and password.</p>
         </div>
 
