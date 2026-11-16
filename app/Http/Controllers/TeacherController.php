@@ -17,7 +17,8 @@ class TeacherController extends Controller
     }
 
     public function teacher_create(){
-        return view("TeacherRegister");
+        $lecturer_id = IdGenerator::next('teachers');
+        return view("TeacherRegister", compact("lecturer_id"));
     }
 
     public function createTeacher(Request $request) {
@@ -28,7 +29,8 @@ class TeacherController extends Controller
 
         try{
             Teacher::query() -> create([
-                "lecturer_id"=> $request->lecturer_id,
+                // generated again on save so it can't be stale / edited in the browser
+                "lecturer_id"=> IdGenerator::next('teachers'),
                 "name"=> $request->name,
                 "phone_number"=> $request->phone_number,
                 "email"=> $request->email,
@@ -73,10 +75,10 @@ class TeacherController extends Controller
                     "email" => $request->email,
                 ]);
 
+            // lecturer_id is not updated: it is generated once when the lecturer is created
             Teacher::query()
             ->where("id", $request->id)
             ->update([
-                "lecturer_id"=> $request->lecturer_id,
                 "name"=> $request->name,
                 "phone_number"=> $request->phone_number,
                 "email"=> $request->email,

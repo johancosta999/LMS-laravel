@@ -50,9 +50,8 @@
                             <div class="col-md-6">
                                 <div class="mb-3">
                                     <label for="reg_no" class="form-label">Lecturer Id: </label>
-                                    <input type="text" name="lecturer_id" name="lecturer_id" placeholder="Enter lecturer id"
-                                        class="form-control" id="lecturer_id"
-                                        value="{{ $teacher->lecturer_id }}">
+                                    <input type="text" class="form-control" id="lecturer_id"
+                                        value="{{ $teacher->lecturer_id }}" readonly>
                                 </div>
 
                                 <div class="mb-3">
@@ -96,7 +95,7 @@
 
                                 <div class="mb-3">
                                     <label for="subjects" class="form-label">Modules: </label>
-                                    <input type="text" name="subjects" name="subjects" placeholder="Enter modules trained"
+                                    <input type="text" name="subjects" placeholder="Enter modules trained (optional)"
                                         class="form-control" id="subjects"
                                         value="{{ $teacher->subjects }}">
                                 </div>

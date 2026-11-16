@@ -15,11 +15,8 @@
         <form wire:submit="submit">
             <div class="mb-3">
                 <label for="reg_no" class="form-label">Register No: </label>
-                <input type="text" wire:model="reg_no" placeholder="Enter registration number"
-                    class="form-control" id="reg_no">
-                @error('reg_no')
-                    <div class="text-danger mt-1">{{ $message }}</div>
-                @enderror
+                <input type="text" value="{{ $reg_no }}" class="form-control" id="reg_no" readonly>
+                <div class="form-text">Auto generated</div>
             </div>
 
             <div class="mb-3">

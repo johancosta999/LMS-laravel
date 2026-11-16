@@ -46,8 +46,8 @@
                             <div class="col-md-6">
                                 <div class="mb-3">
                                     <label for="reg_no" class="form-label">Module Id: </label>
-                                    <input type="text" name="module_id" placeholder="Enter module id" class="form-control"
-                                        id="reg_no">
+                                    <input type="text" value="{{ $module_id }}" class="form-control" id="reg_no" readonly>
+                                    <div class="form-text">Auto generated</div>
                                 </div>
 
                                 <div class="mb-3">
@@ -64,12 +64,32 @@
 
                             <div class="col-md-6">
                                 <div class="mb-3">
-                                    <label for="exampleInputEmail1" class="form-label">Assigned lectures: </label>
-                                    <input type="text" name="assigned_lecturers" class="form-control"
-                                        id="assigned_lecturers" aria-describedby="emailHelp">
-                                    <div id="assigned_lecturers" class="form-text">We'll never share your email with anyone
-                                        else.
-                                    </div>
+                                    <label class="form-label">Assigned lecturers: <span class="text-danger">*</span></label>
+                                    @forelse ($teachers as $teacher)
+                                        <div class="form-check">
+                                            <input type="checkbox" name="assigned_lecturers[]" value="{{ $teacher->name }}"
+                                                class="form-check-input" id="teacher_{{ $teacher->id }}"
+                                                @checked(in_array($teacher->name, old('assigned_lecturers', [])))>
+                                            <label class="form-check-label" for="teacher_{{ $teacher->id }}">
+                                                {{ $teacher->lecturer_id }} - {{ $teacher->name }}
+                                            </label>
+                                        </div>
+                                    @empty
+                                        <p class="text-muted mb-0">No lecturers registered yet.</p>
+                                    @endforelse
+                                    @error('assigned_lecturers')
+                                        <div class="text-danger mt-1">{{ $message }}</div>
+                                    @enderror
+                                </div>
+
+                                <div class="mb-3">
+                                    <label for="enrol_key" class="form-label">Enrolment key: <span class="text-danger">*</span></label>
+                                    <input type="text" name="enrol_key" placeholder="Enter enrolment key"
+                                        class="form-control" id="enrol_key" value="{{ old('enrol_key') }}">
+                                    <div class="form-text">Students need this key to enrol in the module.</div>
+                                    @error('enrol_key')
+                                        <div class="text-danger mt-1">{{ $message }}</div>
+                                    @enderror
                                 </div>
                             </div>
 

@@ -25,4 +25,10 @@ class Student extends Authenticatable
         'password',
         'remember_token',
     ];
+
+    // modules this student is enrolled in
+    public function subjects()
+    {
+        return $this->belongsToMany(Subject::class, 'enrollments')->withTimestamps();
+    }
 }

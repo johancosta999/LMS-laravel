@@ -121,6 +121,24 @@
               <span>Student Dashboard</span>
             </a>
           </li>
+          <li class="sidebar-menu-item">
+            <a href="{{ route('student.modules') }}" class="sidebar-menu-link" title="Modules">
+              <i class="bi bi-journal-bookmark"></i>
+              <span>Modules</span>
+            </a>
+          </li>
+        </ul>
+      </div>
+
+      <div class="sidebar-menu-section">
+        <div class="sidebar-menu-title">Assigned modules</div>
+        <ul class="sidebar-menu-list">
+          <li class="sidebar-menu-item">
+            <a href="{{ route('student.assigned_modules') }}" class="sidebar-menu-link" title="My Modules">
+              <i class="bi bi-collection"></i>
+              <span>My Modules</span>
+            </a>
+          </li>
         </ul>
       </div>
     @endif

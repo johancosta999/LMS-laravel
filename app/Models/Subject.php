@@ -11,5 +11,12 @@ class Subject extends Model
         'name',
         'lectures_count',
         'assigned_lecturers',
+        'enrol_key',
     ];
+
+    // students enrolled in this module
+    public function students()
+    {
+        return $this->belongsToMany(Student::class, 'enrollments')->withTimestamps();
+    }
 }

@@ -49,6 +49,10 @@
             </div>
         </div>
 
+        @if (session('success'))
+            <div class="alert alert-success">{{ session('success') }}</div>
+        @endif
+
         <div class="card card-primary">
             <div class="card-header">
                 <h3 class="card-title">Student information</h3>
@@ -58,6 +62,7 @@
                     <table id="studentsTable" class="table table-striped table-bordered table-hover w-100">
                         <thead>
                             <tr>
+                                <th>Reg No</th>
                                 <th>Name</th>
                                 <th>Email</th>
                                 <th>Address</th>
@@ -68,6 +73,7 @@
                         <tbody>
                             @foreach ($students as $student)
                                 <tr>
+                                    <td><strong>{{ $student->reg_no }}</strong></td>
                                     <td>{{ $student->name }}</td>
                                     <td>{{ $student->email }}</td>
                                     <td>{{ $student->address }}</td>

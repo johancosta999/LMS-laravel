@@ -4,6 +4,7 @@ namespace App\Livewire;
 
 use App\Models\Student;
 use App\Models\User;
+use App\Http\Controllers\IdGenerator;
 use Illuminate\Support\Facades\Hash;
 use Livewire\Component;
 use Livewire\WithFileUploads;
@@ -21,10 +22,19 @@ class StudentRegForm extends Component
     public $address = '';
     public $image;
 
+    public function mount()
+    {
+        $this->reg_no = $this->nextRegNo();
+    }
+
+    private function nextRegNo()
+    {
+        return IdGenerator::next('students');
+    }
+
     protected function rules()
     {
         return [
-            'reg_no' => 'required|unique:students,reg_no',
             'name' => 'required',
             'email' => 'required|email|unique:students,email|unique:users,email',
             'password' => 'required|min:6',
@@ -39,6 +49,9 @@ class StudentRegForm extends Component
     public function submit()
     {
         $this->validate();
+
+        // recalculate on save so the browser value can't be tampered with / be stale
+        $this->reg_no = $this->nextRegNo();
 
         // same folder + disk that StudentController (ImageUploader) uses
         $imagePath = $this->image->store('Student/profile', 'public');
@@ -62,11 +75,9 @@ class StudentRegForm extends Component
             "password" => Hash::make($this->password),
         ]);
 
-        $this->reset();
-
         session()->flash('success', 'Student registered successfully');
 
-        $this->dispatch('student-registered');
+        return $this->redirectRoute('student.student_list');
     }
 
     public function render()

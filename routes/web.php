@@ -17,6 +17,14 @@ Route::post('/logout', [LoginController::class, 'logout'])->name('logout')->midd
 // student dashboard (role = student)
 Route::middleware(['auth', 'role:student'])->group(function () {
     Route::get('/student/dashboard', [StudentController::class, 'dashboard'])->name('student.dashboard');
+
+    // module list + enrol with key
+    Route::get('/student/modules', [SubjectController::class, 'student_modules'])->name('student.modules');
+    Route::post('/student/modules/{id}/enrol', [SubjectController::class, 'enrol'])->name('student.enrol');
+
+    // enrolled modules + single module page
+    Route::get('/student/my-modules', [SubjectController::class, 'assigned_modules'])->name('student.assigned_modules');
+    Route::get('/student/my-modules/{id}', [SubjectController::class, 'view_module'])->name('student.view_module');
 });
 
 // teacher pages (role = teacher)

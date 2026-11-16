@@ -35,6 +35,7 @@
                                 <th scope="col">Name</th>
                                 <th scope="col"># of Lectures</th>
                                 <th scope="col">Assigned Lecturers</th>
+                                <th scope="col">Enrolment Key</th>
                                 <th scope="col">Actions</th>
                             </tr>
                         </thead>
@@ -46,6 +47,7 @@
                                 <td>{{ $module->name }}</td>
                                 <td>{{ $module->lectures_count }}</td>
                                 <td>{{ $module->assigned_lecturers }}</td>
+                                <td>{{ $module->enrol_key ?? '-' }}</td>
                                 <td>
                                     <a href="{{ route('subject.edit', $module->id ) }}" class="btn btn-warning btn-sm">Update</a>
                                     <a href="{{ route('subject.delete', $module->id ) }}" class="btn btn-danger btn-sm">Delete</a>
