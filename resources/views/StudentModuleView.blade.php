@@ -62,8 +62,13 @@
                                 <tbody>
                                     @foreach ($exams as $exam)
                                         @php $mark = $marks[$exam->id] ?? null; @endphp
-                                        <tr>
-                                            <td>{{ $exam->title }}</td>
+                                        <tr @if ($exam->isNew()) class="table-warning" @endif>
+                                            <td>
+                                                {{ $exam->title }}
+                                                @if ($exam->isNew())
+                                                    <span class="badge bg-danger ms-1">New</span>
+                                                @endif
+                                            </td>
                                             <td>{{ $exam->exam_date }}</td>
                                             <td>{{ $exam->total_marks }} / {{ $exam->pass_marks }}</td>
                                             <td>{{ $mark ?? '-' }}</td>

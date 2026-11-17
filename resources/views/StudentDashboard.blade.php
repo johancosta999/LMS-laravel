@@ -13,6 +13,33 @@
         </div>
         <!-- END: Dashboard Header Banner -->
 
+        <!-- START: New Exam Notice -->
+        @if ($newExams->isNotEmpty())
+            <div class="alert alert-warning border-start border-4 border-warning shadow-sm mb-4" role="alert">
+                <div class="d-flex align-items-center gap-2 mb-2">
+                    <i class="bi bi-megaphone-fill fs-4"></i>
+                    <h2 class="h5 mb-0">
+                        {{ $newExams->count() === 1 ? 'A new exam has' : $newExams->count() . ' new exams have' }}
+                        been scheduled in your modules
+                    </h2>
+                </div>
+                <ul class="list-unstyled mb-0">
+                    @foreach ($newExams as $exam)
+                        <li class="d-flex flex-wrap align-items-center gap-2 py-1">
+                            <span class="badge bg-danger">New</span>
+                            <strong>{{ $exam->title }}</strong>
+                            <span>in {{ $exam->subject->name ?? 'Unknown module' }}</span>
+                            <span class="text-muted">&middot; {{ \Carbon\Carbon::parse($exam->exam_date)->format('M jS Y') }}</span>
+                            <a href="{{ route('student.view_module', $exam->subject_id) }}" class="ms-auto alert-link">
+                                View module <i class="bi bi-arrow-right"></i>
+                            </a>
+                        </li>
+                    @endforeach
+                </ul>
+            </div>
+        @endif
+        <!-- END: New Exam Notice -->
+
         <div class="row g-4">
 
             <!-- TOP AREA: Stat Cards Row -->

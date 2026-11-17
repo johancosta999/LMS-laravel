@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use App\Models\Exam;
 use App\Models\Student;
 use App\Models\User;
 
@@ -114,7 +115,18 @@ class StudentController extends Controller
             ->where("email", Auth::user()->email)
             ->first();
 
-        return view("StudentDashboard", compact("student"));
+        // newly created exams in the modules this student is enrolled in
+        $newExams = collect();
+        if ($student) {
+            $newExams = Exam::query()
+                ->with('subject')
+                ->whereIn('subject_id', $student->subjects()->pluck('subjects.id'))
+                ->recentlyCreated()
+                ->latest()
+                ->get();
+        }
+
+        return view("StudentDashboard", compact("student", "newExams"));
     }
 
     public function student_id(){
