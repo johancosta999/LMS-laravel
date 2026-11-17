@@ -27,6 +27,8 @@
                     <div class="registration-checklist">
                         <div><i class="bi bi-check2-circle"></i><span>Pick the correct module</span></div>
                         <div><i class="bi bi-check2-circle"></i><span>Pass mark must not be higher than total marks</span></div>
+                        <div><i class="bi bi-check2-circle"></i><span>Set an enrolment key and a duration</span></div>
+                        <div><i class="bi bi-check2-circle"></i><span>Upload a PDF paper or build an online quiz (auto-marked)</span></div>
                     </div>
                 </aside>
             </div>
@@ -45,7 +47,7 @@
                         <div class="alert alert-warning">No modules found. Ask the admin to add a module first.</div>
                     @endif
 
-                    <form action="{{ route('exam.createExam') }}" method="post">
+                    <form action="{{ route('exam.createExam') }}" method="post" enctype="multipart/form-data">
                         @csrf
                         <div class="row g-4">
                             <div class="col-md-6">
@@ -84,7 +86,7 @@
 
                             <div class="col-md-6">
                                 <div class="mb-3">
-                                    <label for="total_marks" class="form-label">Total marks: *</label>
+                                    <label for="total_marks" class="form-label">Full marks: *</label>
                                     <input type="number" name="total_marks" value="{{ old('total_marks', 100) }}" class="form-control" id="total_marks">
                                     @error('total_marks')
                                         <div class="text-danger mt-1">{{ $message }}</div>
@@ -100,11 +102,14 @@
                                 </div>
 
                                 <div class="mb-3">
-                                    <label for="description" class="form-label">Description:</label>
-                                    <textarea name="description" id="description" rows="3" class="form-control"
-                                        placeholder="Optional notes">{{ old('description') }}</textarea>
+                                    <label for="description" class="form-label">Rules / instructions:</label>
+                                    <textarea name="description" id="description" rows="4" class="form-control"
+                                        placeholder="One rule per line, e.g.&#10;Answer all questions&#10;No calculators allowed">{{ old('description') }}</textarea>
+                                    <div class="form-text">Each line is shown to students as a numbered rule before they start.</div>
                                 </div>
                             </div>
+
+                            @include('component.exam-delivery-fields', ['exam' => null])
 
                             <div class="col-12">
                                 <button type="submit" class="btn btn-primary">Create exam</button>

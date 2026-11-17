@@ -15,27 +15,29 @@
 
         <!-- START: New Exam Notice -->
         @if ($newExams->isNotEmpty())
-            <div class="alert alert-warning border-start border-4 border-warning shadow-sm mb-4" role="alert">
-                <div class="d-flex align-items-center gap-2 mb-2">
-                    <i class="bi bi-megaphone-fill fs-4"></i>
-                    <h2 class="h5 mb-0">
-                        {{ $newExams->count() === 1 ? 'A new exam has' : $newExams->count() . ' new exams have' }}
-                        been scheduled in your modules
-                    </h2>
-                </div>
-                <ul class="list-unstyled mb-0">
+            <div class="exam-dark exam-notice" role="alert">
+                <span class="exam-pill is-live"><i class="bi bi-megaphone-fill"></i> Exam notice</span>
+                <h2 class="exam-notice-title">
+                    {{ $newExams->count() === 1 ? 'A new exam has' : $newExams->count() . ' new exams have' }}
+                    been scheduled in your modules
+                </h2>
+                <ul class="exam-notice-list">
                     @foreach ($newExams as $exam)
-                        <li class="d-flex flex-wrap align-items-center gap-2 py-1">
-                            <span class="badge bg-danger">New</span>
+                        <li class="exam-notice-item">
+                            <span class="badge-new">New</span>
                             <strong>{{ $exam->title }}</strong>
-                            <span>in {{ $exam->subject->name ?? 'Unknown module' }}</span>
-                            <span class="text-muted">&middot; {{ \Carbon\Carbon::parse($exam->exam_date)->format('M jS Y') }}</span>
-                            <a href="{{ route('student.view_module', $exam->subject_id) }}" class="ms-auto alert-link">
-                                View module <i class="bi bi-arrow-right"></i>
+                            <span class="meta">
+                                {{ $exam->subject->name ?? 'Unknown module' }}
+                                &middot; {{ \Carbon\Carbon::parse($exam->exam_date)->format('M jS Y') }}
+                                &middot; {{ $exam->duration_minutes }} min
+                            </span>
+                            <a href="{{ route('student.exam.show', $exam->id) }}" class="exam-notice-link">
+                                View exam <i class="bi bi-arrow-right"></i>
                             </a>
                         </li>
                     @endforeach
                 </ul>
+                @include('component.exam-shape')
             </div>
         @endif
         <!-- END: New Exam Notice -->

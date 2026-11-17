@@ -57,16 +57,17 @@
                                         <th scope="col">Total / Pass</th>
                                         <th scope="col">My marks</th>
                                         <th scope="col">Result</th>
+                                        <th scope="col"></th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     @foreach ($exams as $exam)
                                         @php $mark = $marks[$exam->id] ?? null; @endphp
-                                        <tr @if ($exam->isNew()) class="table-warning" @endif>
+                                        <tr @if ($exam->isNew()) class="exam-row-new" @endif>
                                             <td>
                                                 {{ $exam->title }}
                                                 @if ($exam->isNew())
-                                                    <span class="badge bg-danger ms-1">New</span>
+                                                    <span class="badge-new ms-1">New</span>
                                                 @endif
                                             </td>
                                             <td>{{ $exam->exam_date }}</td>
@@ -79,6 +80,14 @@
                                                     <span class="badge bg-success">Pass</span>
                                                 @else
                                                     <span class="badge bg-danger">Fail</span>
+                                                @endif
+                                            </td>
+                                            <td class="text-end">
+                                                @if ($exam->isQuiz() || $exam->paper_path)
+                                                    <a href="{{ route('student.exam.show', $exam->id) }}" class="btn-forest btn-sm">
+                                                        <i class="bi {{ $exam->isQuiz() ? 'bi-ui-checks' : 'bi-file-earmark-pdf' }}"></i>
+                                                        {{ $exam->isQuiz() ? 'Quiz' : 'Paper' }} &middot; {{ $exam->duration_minutes }} min
+                                                    </a>
                                                 @endif
                                             </td>
                                         </tr>

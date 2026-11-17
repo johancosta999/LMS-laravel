@@ -4,6 +4,7 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\ExamController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\StudentController;
+use App\Http\Controllers\StudentExamController;
 use App\Http\Controllers\TeacherController;
 use App\Http\Controllers\SubjectController;
 
@@ -25,6 +26,13 @@ Route::middleware(['auth', 'role:student'])->group(function () {
     // enrolled modules + single module page
     Route::get('/student/my-modules', [SubjectController::class, 'assigned_modules'])->name('student.assigned_modules');
     Route::get('/student/my-modules/{id}', [SubjectController::class, 'view_module'])->name('student.view_module');
+
+    // sitting an exam: key -> timed paper / online quiz
+    Route::get('/student/exams/{id}', [StudentExamController::class, 'show'])->name('student.exam.show');
+    Route::post('/student/exams/{id}/start', [StudentExamController::class, 'start'])->name('student.exam.start');
+    Route::get('/student/exams/{id}/take', [StudentExamController::class, 'take'])->name('student.exam.take');
+    Route::post('/student/exams/{id}/submit', [StudentExamController::class, 'submit'])->name('student.exam.submit');
+    Route::get('/student/exams/{id}/paper', [StudentExamController::class, 'paper'])->name('student.exam.paper');
 });
 
 // teacher pages (role = teacher)
@@ -39,6 +47,7 @@ Route::middleware(['auth', 'role:teacher'])->group(function () {
         Route::get('/edit/{id}', [ExamController::class, 'edit'])->name('exam.edit');
         Route::post('/update', [ExamController::class, 'updateExam'])->name('exam.update');
         Route::get('/delete/{id}', [ExamController::class, 'deleteExam'])->name('exam.delete');
+        Route::get('/paper/{id}', [ExamController::class, 'paper'])->name('exam.paper');
 
         //marks + report
         Route::get('/marks/{id}', [ExamController::class, 'marks'])->name('exam.marks');

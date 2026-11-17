@@ -27,7 +27,7 @@
                 <span class="registration-required-note"><span>*</span> Required fields</span>
             </div>
 
-            <form action="{{ route('exam.update') }}" method="post">
+            <form action="{{ route('exam.update') }}" method="post" enctype="multipart/form-data">
                 @csrf
                 <input type="hidden" name="id" value="{{ $exam->id }}">
                 <div class="row g-4">
@@ -65,7 +65,7 @@
 
                     <div class="col-md-6">
                         <div class="mb-3">
-                            <label for="total_marks" class="form-label">Total marks: *</label>
+                            <label for="total_marks" class="form-label">Full marks: *</label>
                             <input type="number" name="total_marks" value="{{ old('total_marks', $exam->total_marks) }}" class="form-control" id="total_marks">
                             @error('total_marks')
                                 <div class="text-danger mt-1">{{ $message }}</div>
@@ -81,10 +81,14 @@
                         </div>
 
                         <div class="mb-3">
-                            <label for="description" class="form-label">Description:</label>
-                            <textarea name="description" id="description" rows="3" class="form-control">{{ old('description', $exam->description) }}</textarea>
+                            <label for="description" class="form-label">Rules / instructions:</label>
+                            <textarea name="description" id="description" rows="4" class="form-control"
+                                placeholder="One rule per line, e.g.&#10;Answer all questions&#10;No calculators allowed">{{ old('description', $exam->description) }}</textarea>
+                            <div class="form-text">Each line is shown to students as a numbered rule before they start.</div>
                         </div>
                     </div>
+
+                    @include('component.exam-delivery-fields', ['exam' => $exam])
 
                     <div class="col-12">
                         <button type="submit" class="btn btn-primary">Update exam</button>

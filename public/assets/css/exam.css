@@ -1,0 +1,731 @@
+/* =====================================================================
+   Exams: notice, exam pages, quiz builder
+   Uses the dark forest + lime look of the admin dashboard green card
+   (.alert-green-card). Tokens come from main.css :root.
+   ===================================================================== */
+
+/* ---------- shared bits ---------- */
+.exam-shape {
+    position: absolute;
+    right: -24px;
+    bottom: -24px;
+    width: 130px;
+    height: 130px;
+    opacity: 0.95;
+    pointer-events: none;
+    transform: rotate(15deg);
+    transition: transform 0.4s ease-in-out;
+    z-index: 0;
+}
+
+.exam-dark:hover .exam-shape {
+    transform: rotate(45deg) scale(1.05);
+}
+
+.exam-dark {
+    background: linear-gradient(145deg, var(--brand-forest-medium), var(--brand-forest-dark));
+    border: 0;
+    border-radius: var(--radius-xxl);
+    box-shadow: var(--shadow-lg);
+    color: #FFFFFF;
+    overflow: hidden;
+    position: relative;
+}
+
+.exam-dark > * {
+    position: relative;
+    z-index: 1;
+}
+
+.exam-pill {
+    align-items: center;
+    background-color: rgba(255, 255, 255, 0.1);
+    border-radius: 50rem;
+    color: #FFFFFF;
+    display: inline-flex;
+    font-size: 0.75rem;
+    font-weight: 700;
+    gap: 0.4rem;
+    padding: 0.35rem 0.8rem;
+}
+
+/* pulsing dot, same as .alert-green-badge */
+.exam-pill.is-live::before {
+    animation: redPulse 2s infinite;
+    background-color: var(--sys-red);
+    border-radius: 50rem;
+    content: '';
+    display: inline-block;
+    height: 6px;
+    width: 6px;
+}
+
+.badge-new {
+    background-color: var(--brand-lime);
+    border-radius: 50rem;
+    color: var(--brand-forest-dark);
+    font-size: 0.68rem;
+    font-weight: 800;
+    letter-spacing: 0.04em;
+    padding: 0.25rem 0.6rem;
+    text-transform: uppercase;
+}
+
+.btn-forest {
+    align-items: center;
+    background-color: var(--brand-forest-medium);
+    border: 0;
+    border-radius: 50rem;
+    color: #FFFFFF;
+    display: inline-flex;
+    font-weight: 700;
+    gap: 0.45rem;
+    padding: 0.7rem 1.35rem;
+    transition: all 0.25s ease;
+}
+
+.btn-forest:hover,
+.btn-forest:focus-visible {
+    background-color: var(--brand-lime);
+    color: var(--brand-forest-dark);
+}
+
+.btn-forest.btn-sm {
+    font-size: 0.78rem;
+    padding: 0.4rem 0.9rem;
+}
+
+.btn-lime {
+    align-items: center;
+    background-color: var(--brand-lime);
+    border: 0;
+    border-radius: 50rem;
+    color: var(--brand-forest-dark);
+    display: inline-flex;
+    font-weight: 800;
+    gap: 0.45rem;
+    padding: 0.75rem 1.5rem;
+    transition: all 0.25s ease;
+}
+
+.btn-lime:hover,
+.btn-lime:focus-visible {
+    background-color: var(--brand-lime-hover);
+    box-shadow: 0 6px 18px rgba(180, 241, 5, 0.35);
+    color: var(--brand-forest-dark);
+}
+
+/* ---------- student dashboard: new exam notice ---------- */
+.exam-notice {
+    margin-bottom: 1.5rem;
+    padding: 1.5rem 1.75rem;
+}
+
+.exam-notice-title {
+    color: #FFFFFF;
+    font-size: 1.15rem;
+    font-weight: 800;
+    margin: 0.85rem 0 1rem;
+}
+
+.exam-notice-list {
+    display: grid;
+    gap: 0.6rem;
+    list-style: none;
+    margin: 0;
+    max-width: calc(100% - 90px);
+    padding: 0;
+}
+
+.exam-notice-item {
+    align-items: center;
+    background-color: rgba(255, 255, 255, 0.06);
+    border: 1px solid var(--border-dark-green);
+    border-radius: var(--radius-lg);
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.6rem;
+    padding: 0.7rem 0.9rem;
+    transition: background-color 0.2s ease;
+}
+
+.exam-notice-item:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+.exam-notice-item .meta {
+    color: var(--text-sidebar-muted);
+    font-size: 0.82rem;
+}
+
+.exam-notice-link {
+    align-items: center;
+    color: var(--brand-lime);
+    display: inline-flex;
+    font-size: 0.85rem;
+    font-weight: 700;
+    gap: 0.25rem;
+    margin-left: auto;
+}
+
+.exam-notice-link:hover {
+    color: #FFFFFF;
+}
+
+.exam-notice-link i {
+    transition: transform 0.25s ease;
+}
+
+.exam-notice-link:hover i {
+    transform: translateX(3px);
+}
+
+/* ---------- student exam page: hero ---------- */
+.exam-hero {
+    margin-bottom: 1.5rem;
+    padding: 2rem;
+}
+
+.exam-hero .registration-eyebrow {
+    color: var(--text-sidebar-muted);
+}
+
+.exam-hero h1 {
+    color: #FFFFFF;
+    font-size: 1.9rem;
+    font-weight: 800;
+    margin: 0.25rem 0 1.25rem;
+}
+
+.exam-hero-stats {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    max-width: calc(100% - 90px);
+}
+
+.exam-hero-stat {
+    background-color: rgba(255, 255, 255, 0.07);
+    border: 1px solid var(--border-dark-green);
+    border-radius: var(--radius-lg);
+    min-width: 140px;
+    padding: 0.75rem 1rem;
+}
+
+.exam-hero-stat span {
+    color: var(--text-sidebar-muted);
+    display: block;
+    font-size: 0.72rem;
+    font-weight: 600;
+    margin-bottom: 0.2rem;
+}
+
+.exam-hero-stat strong {
+    color: var(--brand-lime);
+    font-size: 1.2rem;
+    font-weight: 800;
+}
+
+.exam-hero .registration-back-link {
+    background-color: rgba(255, 255, 255, 0.08);
+    border-color: var(--border-dark-green);
+    color: #FFFFFF;
+}
+
+.exam-hero .registration-back-link:hover {
+    background-color: var(--brand-lime);
+    border-color: var(--brand-lime);
+    color: var(--brand-forest-dark);
+}
+
+/* ---------- rules ---------- */
+.exam-rules-heading {
+    align-items: center;
+    color: var(--text-muted-green);
+    display: flex;
+    font-size: 0.7rem;
+    font-weight: 800;
+    gap: 0.45rem;
+    letter-spacing: 0.1em;
+    margin-bottom: 0.85rem;
+    text-transform: uppercase;
+}
+
+.exam-rules-heading i {
+    color: var(--brand-forest-medium);
+}
+
+.exam-rule-list {
+    counter-reset: rule;
+    display: grid;
+    gap: 0.6rem;
+    list-style: none;
+    margin: 0 0 1.75rem;
+    padding: 0;
+}
+
+.exam-rule-list li {
+    align-items: flex-start;
+    background-color: #F7FAF2;
+    border: 1px solid var(--border-light);
+    border-left: 4px solid var(--brand-lime);
+    border-radius: var(--radius-md);
+    color: var(--text-main);
+    counter-increment: rule;
+    display: flex;
+    font-weight: 600;
+    gap: 0.85rem;
+    padding: 0.8rem 1rem;
+}
+
+.exam-rule-list li::before {
+    align-items: center;
+    background-color: var(--brand-forest-medium);
+    border-radius: 50%;
+    color: var(--brand-lime);
+    content: counter(rule);
+    display: inline-flex;
+    flex-shrink: 0;
+    font-size: 0.75rem;
+    font-weight: 800;
+    height: 1.6rem;
+    justify-content: center;
+    width: 1.6rem;
+}
+
+.exam-system-rules {
+    display: grid;
+    gap: 0.5rem;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.exam-system-rules li {
+    align-items: flex-start;
+    border: 1px solid var(--border-light);
+    border-radius: var(--radius-md);
+    color: var(--text-muted-green);
+    display: flex;
+    font-size: 0.85rem;
+    gap: 0.75rem;
+    padding: 0.75rem 0.9rem;
+}
+
+.exam-system-rules li strong {
+    color: var(--text-main);
+}
+
+.exam-system-rules i {
+    align-items: center;
+    background-color: var(--brand-lime-translucent);
+    border-radius: var(--radius-sm);
+    color: var(--brand-forest-medium);
+    display: inline-flex;
+    flex-shrink: 0;
+    height: 1.9rem;
+    justify-content: center;
+    width: 1.9rem;
+}
+
+/* ---------- key form / status ---------- */
+.exam-key-card {
+    border: 2px dashed rgba(7, 47, 31, 0.18);
+    border-radius: var(--radius-xl);
+    padding: 1.5rem;
+}
+
+.exam-key-card .form-control {
+    border-radius: 50rem;
+    letter-spacing: 0.15em;
+}
+
+.exam-warning {
+    align-items: center;
+    background-color: var(--brand-lime-translucent);
+    border-radius: var(--radius-md);
+    color: var(--brand-forest-medium);
+    display: flex;
+    font-size: 0.85rem;
+    font-weight: 600;
+    gap: 0.6rem;
+    margin-bottom: 1.25rem;
+    padding: 0.75rem 1rem;
+}
+
+.exam-status {
+    align-items: center;
+    border-radius: var(--radius-lg);
+    display: flex;
+    gap: 1rem;
+    padding: 1.25rem 1.5rem;
+}
+
+.exam-status i {
+    font-size: 1.6rem;
+}
+
+.exam-status.is-done {
+    background-color: var(--brand-lime-translucent);
+    color: var(--brand-forest-medium);
+}
+
+.exam-status.is-closed {
+    background-color: var(--bs-body-bg);
+    color: var(--text-muted-green);
+}
+
+.exam-score {
+    background-color: var(--brand-forest-medium);
+    border-radius: 50rem;
+    color: var(--brand-lime);
+    font-weight: 800;
+    margin-left: auto;
+    padding: 0.4rem 1rem;
+    white-space: nowrap;
+}
+
+/* ---------- taking the exam ---------- */
+.exam-timer {
+    align-items: center;
+    background-color: var(--brand-forest-medium);
+    border-radius: 50rem;
+    box-shadow: var(--shadow-md);
+    color: var(--brand-lime);
+    display: inline-flex;
+    font-size: 1.35rem;
+    font-variant-numeric: tabular-nums;
+    font-weight: 800;
+    gap: 0.6rem;
+    padding: 0.55rem 1.25rem;
+    position: sticky;
+    top: calc(var(--navbar-height) + 0.75rem);
+    transition: background-color 0.3s ease, color 0.3s ease;
+    z-index: 5;
+}
+
+.exam-timer.is-urgent {
+    animation: timerPulse 1s infinite;
+    background-color: var(--sys-red);
+    color: #FFFFFF;
+}
+
+@keyframes timerPulse {
+    0%, 100% { box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.45); }
+    50% { box-shadow: 0 0 0 8px rgba(239, 68, 68, 0); }
+}
+
+.exam-rules-toggle {
+    background-color: #FFFFFF;
+    border: 1px solid var(--border-light);
+    border-radius: var(--radius-xl);
+    margin-bottom: 1.5rem;
+    padding: 1rem 1.5rem;
+}
+
+.exam-rules-toggle summary {
+    align-items: center;
+    color: var(--brand-forest-medium);
+    cursor: pointer;
+    display: flex;
+    font-weight: 700;
+    gap: 0.5rem;
+    list-style: none;
+}
+
+.exam-rules-toggle summary::-webkit-details-marker {
+    display: none;
+}
+
+.exam-rules-toggle summary::after {
+    content: '\F282'; /* bi-chevron-down */
+    font-family: 'bootstrap-icons';
+    margin-left: auto;
+    transition: transform 0.2s ease;
+}
+
+.exam-rules-toggle[open] summary::after {
+    transform: rotate(180deg);
+}
+
+.quiz-question {
+    background-color: #FFFFFF;
+    border: 1px solid var(--border-light);
+    border-radius: var(--radius-xl);
+    box-shadow: var(--shadow-sm);
+    padding: 1.5rem;
+}
+
+.quiz-question-head {
+    align-items: center;
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 0.75rem;
+}
+
+.quiz-question-number {
+    align-items: center;
+    color: var(--brand-forest-medium);
+    display: flex;
+    font-weight: 800;
+    gap: 0.6rem;
+}
+
+.quiz-question-number span {
+    align-items: center;
+    background-color: var(--brand-forest-medium);
+    border-radius: var(--radius-sm);
+    color: var(--brand-lime);
+    display: inline-flex;
+    font-size: 0.8rem;
+    height: 1.75rem;
+    justify-content: center;
+    width: 1.75rem;
+}
+
+.quiz-marks {
+    background-color: var(--brand-lime-translucent);
+    border-radius: 50rem;
+    color: var(--brand-forest-medium);
+    font-size: 0.75rem;
+    font-weight: 700;
+    padding: 0.25rem 0.7rem;
+}
+
+.quiz-question-text {
+    color: var(--text-main);
+    font-size: 1.02rem;
+    font-weight: 600;
+    white-space: pre-line;
+}
+
+.quiz-multi-hint {
+    color: var(--brand-forest-medium);
+    font-size: 0.8rem;
+    font-weight: 700;
+    margin-bottom: 0.75rem;
+}
+
+.quiz-options {
+    display: grid;
+    gap: 0.5rem;
+}
+
+/* option rows are selectable tiles */
+.quiz-option {
+    align-items: center;
+    border: 1.5px solid var(--border-light);
+    border-radius: var(--radius-md);
+    cursor: pointer;
+    display: flex;
+    gap: 0.75rem;
+    margin: 0;
+    padding: 0.75rem 1rem;
+    transition: all 0.15s ease;
+}
+
+.quiz-option:hover {
+    background-color: #F7FAF2;
+    border-color: rgba(7, 47, 31, 0.25);
+}
+
+.quiz-option .form-check-input {
+    flex-shrink: 0;
+    margin: 0;
+}
+
+.quiz-option .form-check-input:checked {
+    background-color: var(--brand-forest-medium);
+    border-color: var(--brand-forest-medium);
+}
+
+.quiz-option .form-check-input:focus {
+    border-color: var(--brand-forest-medium);
+    box-shadow: 0 0 0 3px rgba(7, 47, 31, 0.12);
+}
+
+.quiz-option:has(.form-check-input:checked) {
+    background-color: var(--brand-lime-translucent);
+    border-color: var(--brand-forest-medium);
+    font-weight: 600;
+}
+
+.exam-paper-frame {
+    border: 1px solid var(--border-light);
+    border-radius: var(--radius-lg);
+    height: 75vh;
+    width: 100%;
+}
+
+.exam-time-up {
+    align-items: center;
+    background-color: var(--sys-red-bg);
+    border-radius: var(--radius-lg);
+    color: var(--sys-red);
+    display: flex;
+    font-weight: 700;
+    gap: 0.6rem;
+    margin-bottom: 1.5rem;
+    padding: 1rem 1.25rem;
+}
+
+/* ---------- teacher: format toggle + quiz builder ---------- */
+.exam-format-toggle {
+    background-color: var(--bs-body-bg);
+    border-radius: 50rem;
+    display: inline-flex;
+    gap: 0.25rem;
+    padding: 0.3rem;
+}
+
+.exam-format-toggle .btn {
+    border: 0;
+    border-radius: 50rem !important;
+    color: var(--text-muted-green);
+    font-size: 0.85rem;
+    font-weight: 700;
+    padding: 0.55rem 1.1rem;
+}
+
+.exam-format-toggle .btn:hover {
+    color: var(--brand-forest-medium);
+}
+
+.exam-format-toggle .btn-check:checked + .btn {
+    background-color: var(--brand-forest-medium);
+    box-shadow: var(--shadow-md);
+    color: var(--brand-lime);
+}
+
+.quiz-total-status {
+    border-radius: 50rem;
+    display: inline-flex;
+    font-size: 0.8rem;
+    font-weight: 700;
+    gap: 0.35rem;
+    margin-left: 0.5rem;
+    padding: 0.3rem 0.85rem;
+}
+
+.quiz-total-status.is-ok {
+    background-color: var(--brand-lime-translucent);
+    color: var(--brand-forest-medium);
+}
+
+.quiz-total-status.is-off {
+    background-color: var(--sys-red-bg);
+    color: var(--sys-red);
+}
+
+.builder-question {
+    background-color: #FBFCFA;
+    border: 1px solid var(--border-light);
+    border-left: 4px solid var(--brand-forest-medium);
+    border-radius: var(--radius-lg);
+    padding: 1.25rem;
+}
+
+.builder-question .question-number {
+    color: var(--brand-forest-medium);
+    font-weight: 800;
+}
+
+.builder-question .input-group-text {
+    background-color: var(--brand-forest-medium);
+    border-color: var(--brand-forest-medium);
+    color: var(--brand-lime);
+    font-weight: 800;
+    justify-content: center;
+    min-width: 2.6rem;
+}
+
+.builder-question .q-option.border-success {
+    background-color: var(--brand-lime-translucent);
+    border-color: var(--brand-forest-medium) !important;
+}
+
+.builder-correct {
+    border-color: rgba(7, 47, 31, 0.2);
+    color: var(--text-muted-green);
+    font-size: 0.8rem;
+    font-weight: 700;
+}
+
+.builder-correct:hover {
+    background-color: var(--brand-lime-translucent);
+    border-color: var(--brand-forest-medium);
+    color: var(--brand-forest-medium);
+}
+
+.btn-check:checked + .builder-correct {
+    background-color: var(--brand-lime);
+    border-color: var(--brand-lime);
+    color: var(--brand-forest-dark);
+}
+
+.builder-add-question {
+    background-color: transparent;
+    border: 2px dashed rgba(7, 47, 31, 0.25);
+    border-radius: var(--radius-lg);
+    color: var(--brand-forest-medium);
+    font-weight: 700;
+    padding: 0.9rem;
+    transition: all 0.2s ease;
+}
+
+.builder-add-question:hover {
+    background-color: var(--brand-lime-translucent);
+    border-color: var(--brand-forest-medium);
+    color: var(--brand-forest-medium);
+}
+
+.builder-remove {
+    background: transparent;
+    border: 1px solid var(--border-light);
+    border-radius: var(--radius-sm);
+    color: var(--text-muted-green);
+}
+
+.builder-remove:hover {
+    background-color: var(--sys-red-bg);
+    border-color: var(--sys-red-bg);
+    color: var(--sys-red);
+}
+
+.exam-type-tag {
+    align-items: center;
+    background-color: var(--brand-lime-translucent);
+    border-radius: 50rem;
+    color: var(--brand-forest-medium);
+    display: inline-flex;
+    font-size: 0.7rem;
+    font-weight: 700;
+    gap: 0.3rem;
+    margin-top: 0.3rem;
+    padding: 0.15rem 0.6rem;
+}
+
+.exam-type-tag a {
+    color: inherit;
+    text-decoration: underline;
+}
+
+tr.exam-row-new > td {
+    background-color: #F7FAF2;
+}
+
+@media (max-width: 575.98px) {
+    .exam-notice-list,
+    .exam-hero-stats {
+        max-width: 100%;
+    }
+
+    .exam-shape {
+        opacity: 0.35;
+    }
+
+    .exam-hero h1 {
+        font-size: 1.5rem;
+    }
+}

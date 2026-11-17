@@ -48,7 +48,20 @@
                         <tbody>
                             @foreach ($exams as $exam)
                                 <tr>
-                                    <td>{{ $exam->title }}</td>
+                                    <td>
+                                        {{ $exam->title }}
+                                        <div class="exam-type-tag">
+                                            @if ($exam->isQuiz())
+                                                <i class="bi bi-ui-checks"></i> Online quiz
+                                            @elseif ($exam->paper_path)
+                                                <i class="bi bi-file-earmark-pdf"></i>
+                                                <a href="{{ route('exam.paper', $exam->id) }}" target="_blank" rel="noopener">PDF paper</a>
+                                            @else
+                                                <i class="bi bi-file-earmark"></i> No paper uploaded
+                                            @endif
+                                            &middot; {{ $exam->duration_minutes }} min
+                                        </div>
+                                    </td>
                                     <td>{{ $exam->subject->name ?? '-' }}</td>
                                     <td>{{ $exam->exam_date }}</td>
                                     <td>{{ $exam->total_marks }} / {{ $exam->pass_marks }}</td>

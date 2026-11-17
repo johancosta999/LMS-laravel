@@ -22,6 +22,7 @@
 
   <!-- Main Design System & Custom Stylesheet -->
   <link rel="stylesheet" href="{{asset('assets/css/main.css')}}">
+  <link rel="stylesheet" href="{{asset('assets/css/exam.css')}}">
   @stack('css')
   @livewireStyles
 </head>
