@@ -32,7 +32,8 @@ Route::middleware(['auth', 'role:student'])->group(function () {
     Route::post('/student/exams/{id}/start', [StudentExamController::class, 'start'])->name('student.exam.start');
     Route::get('/student/exams/{id}/take', [StudentExamController::class, 'take'])->name('student.exam.take');
     Route::post('/student/exams/{id}/submit', [StudentExamController::class, 'submit'])->name('student.exam.submit');
-    Route::get('/student/exams/{id}/paper', [StudentExamController::class, 'paper'])->name('student.exam.paper');
+    Route::get('/student/exams/{id}/review', [StudentExamController::class, 'review'])->name('student.exam.review');
+    Route::get('/student/exams/{id}/paper',[StudentExamController::class, 'paper'])->name('student.exam.paper');
 });
 
 // teacher pages (role = teacher)

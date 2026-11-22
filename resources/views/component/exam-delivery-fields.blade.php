@@ -20,6 +20,11 @@
         ])->all();
     }
     $initialQuestions = array_values($initialQuestions ?? []);
+
+    $reviewMode = old('review_mode', $exam->review_mode ?? 'never');
+    $reviewAvailableAt = old('review_available_at', $exam && $exam->review_available_at
+        ? $exam->review_available_at->format('Y-m-d\TH:i')
+        : '');
 @endphp
 
 <div class="col-12">
@@ -111,6 +116,31 @@
     <button type="button" class="builder-add-question w-100 mt-3" id="add-question">
         <i class="bi bi-plus-lg"></i> Add question
     </button>
+
+    {{-- when students may see the questions they got wrong, with the correct answers --}}
+    <div class="row g-3 mt-2">
+        <div class="col-md-6">
+            <label for="review_mode" class="form-label">Show students their incorrect answers:</label>
+            <select name="review_mode" id="review_mode" class="form-select">
+                <option value="never" @selected($reviewMode === 'never')>Don't show</option>
+                <option value="immediate" @selected($reviewMode === 'immediate')>Immediately once answers are submitted</option>
+                <option value="date" @selected($reviewMode === 'date')>From a date I choose</option>
+            </select>
+            <div class="form-text">Students see the questions they got wrong together with the correct answers.</div>
+            @error('review_mode')
+                <div class="text-danger mt-1">{{ $message }}</div>
+            @enderror
+        </div>
+        <div class="col-md-6" id="review-date-field">
+            <label for="review_available_at" class="form-label">Available from: *</label>
+            <input type="datetime-local" name="review_available_at" id="review_available_at" class="form-control"
+                value="{{ $reviewAvailableAt }}">
+            <div class="form-text">Until then students only see their score.</div>
+            @error('review_available_at')
+                <div class="text-danger mt-1">{{ $message }}</div>
+            @enderror
+        </div>
+    </div>
 </div>
 
 <template id="question-template">
@@ -292,10 +322,23 @@
         paperSection.classList.toggle('d-none', quiz);
         quizSection.classList.toggle('d-none', !quiz);
         // disabled inputs are not submitted, so the quiz builder only posts when it is used
-        quizSection.querySelectorAll('input, textarea').forEach(function (el) { el.disabled = !quiz; });
+        quizSection.querySelectorAll('input, textarea, select').forEach(function (el) { el.disabled = !quiz; });
         paperSection.querySelectorAll('input').forEach(function (el) { el.disabled = quiz; });
         if (quiz && !list.children.length) addQuestion();
+        toggleReviewDate();
     }
+
+    // the date picker only matters for "From a date I choose"
+    const reviewMode = document.getElementById('review_mode');
+    const reviewDateField = document.getElementById('review-date-field');
+    const reviewDate = document.getElementById('review_available_at');
+    function toggleReviewDate() {
+        const byDate = reviewMode.value === 'date';
+        reviewDateField.classList.toggle('d-none', !byDate);
+        reviewDate.disabled = !byDate || !isQuiz();
+        reviewDate.required = byDate && isQuiz();
+    }
+    reviewMode.addEventListener('change', toggleReviewDate);
 
     // stop the submit and tell the teacher what is wrong with the quiz
     form.addEventListener('submit', function (e) {

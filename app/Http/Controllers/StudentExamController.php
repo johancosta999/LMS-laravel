@@ -113,6 +113,41 @@ class StudentExamController extends Controller
         );
     }
 
+    // after a quiz is submitted: the questions the student got wrong (or skipped) with the correct answers
+    public function review($id){
+        $student = $this->currentStudent();
+        $exam = $this->findExam($student, $id);
+        $attempt = $this->findAttempt($student, $exam);
+
+        abort_unless($exam->isQuiz() && $attempt && $attempt->submitted_at, 404);
+
+        // the teacher decides if / when the answers are shown
+        if (!$exam->reviewIsOpen()) {
+            return redirect()->route('student.exam.show', $exam->id)->with('error', $exam->allowsReview()
+                ? 'Your incorrect answers can be reviewed from ' . $exam->review_available_at->format('M jS Y, H:i') . '.'
+                : 'Your lecturer has not made the answers available for this quiz.');
+        }
+
+        $answers = $attempt->answers ?? [];
+        $questions = $exam->questions()->get();
+
+        $wrong = $questions
+            ->map(function ($question, $i) use ($answers) {
+                $question->number = $i + 1;
+                $question->chosen = array_map('intval', (array) ($answers[$question->id] ?? []));
+                return $question;
+            })
+            ->reject(fn ($question) => $question->isCorrect($question->chosen))
+            ->values();
+
+        return view('StudentExamReview', [
+            'exam' => $exam,
+            'attempt' => $attempt,
+            'wrong' => $wrong,
+            'totalQuestions' => $questions->count(),
+        ]);
+    }
+
     // grade the answers and copy the score into the normal exam results
     private function finishQuiz(Exam $exam, ExamAttempt $attempt, array $answers){
         $score = 0;

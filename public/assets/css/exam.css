@@ -551,6 +551,63 @@
     font-weight: 600;
 }
 
+/* ---------- reviewing a submitted quiz ---------- */
+.review-legend {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    font-size: 0.85rem;
+    font-weight: 700;
+}
+
+.review-key.is-correct { color: var(--sys-green); }
+.review-key.is-wrong { color: var(--sys-red); }
+
+.review-option {
+    align-items: center;
+    border: 1.5px solid var(--border-light);
+    border-radius: var(--radius-md);
+    color: var(--text-muted-green);
+    display: flex;
+    gap: 0.75rem;
+    padding: 0.75rem 1rem;
+}
+
+.review-option.is-correct {
+    background-color: var(--sys-green-bg);
+    border-color: var(--sys-green);
+    color: var(--brand-forest-dark);
+    font-weight: 600;
+}
+
+.review-option.is-correct i { color: var(--sys-green); }
+
+.review-option.is-wrong {
+    background-color: var(--sys-red-bg);
+    border-color: var(--sys-red);
+    color: var(--brand-forest-dark);
+    font-weight: 600;
+}
+
+.review-option.is-wrong i { color: var(--sys-red); }
+
+.review-tag {
+    background-color: rgba(0, 0, 0, 0.06);
+    border-radius: 50rem;
+    font-size: 0.7rem;
+    font-weight: 700;
+    margin-left: auto;
+    padding: 0.2rem 0.6rem;
+    white-space: nowrap;
+}
+
+.review-skipped {
+    color: var(--sys-orange);
+    font-size: 0.85rem;
+    font-weight: 700;
+    margin-bottom: 0.75rem;
+}
+
 .exam-paper-frame {
     border: 1px solid var(--border-light);
     border-radius: var(--radius-lg);

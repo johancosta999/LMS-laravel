@@ -18,11 +18,39 @@ class Exam extends Model
         'enrol_key',
         'duration_minutes',
         'paper_path',
+        'review_mode',
+        'review_available_at',
     ];
 
     protected $hidden = [
         'enrol_key',
     ];
+
+    protected $casts = [
+        'review_available_at' => 'datetime',
+    ];
+
+    // when students can review their incorrect quiz answers
+    const REVIEW_NEVER = 'never';
+    const REVIEW_IMMEDIATE = 'immediate';
+    const REVIEW_DATE = 'date';
+
+    // review switched on at all (it may still be waiting for its date)
+    public function allowsReview(): bool
+    {
+        return $this->isQuiz() && in_array($this->review_mode, [self::REVIEW_IMMEDIATE, self::REVIEW_DATE], true);
+    }
+
+    // review can be opened right now (the student must also have submitted)
+    public function reviewIsOpen(): bool
+    {
+        if (!$this->allowsReview()) {
+            return false;
+        }
+
+        return $this->review_mode === self::REVIEW_IMMEDIATE
+            || ($this->review_available_at && now()->gte($this->review_available_at));
+    }
 
     // the teacher's description as a list of rules: one per line,
     // with any bullet / numbering the teacher typed ("-", "*", "•", "1.", "2)") stripped

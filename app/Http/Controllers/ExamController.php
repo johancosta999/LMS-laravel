@@ -98,6 +98,8 @@ class ExamController extends Controller
                 'questions.*.correct' => ['required', 'array', 'min:1'],
                 'questions.*.correct.*' => ['integer', 'min:0'],
                 'questions.*.marks' => ['required', 'numeric', 'min:0.01', 'decimal:0,2'],
+                'review_mode' => ['nullable', 'in:never,immediate,date'],
+                'review_available_at' => ['nullable', 'required_if:review_mode,date', 'date'],
             ];
         } else {
             $rules['paper'] = [$hasPaper ? 'nullable' : 'required', 'file', 'mimes:pdf', 'max:20480'];
@@ -109,6 +111,7 @@ class ExamController extends Controller
             'questions.*.correct.required' => 'Select at least one correct answer for every question.',
             'questions.*.marks.*' => 'Every question needs a mark above 0 (up to 2 decimal places).',
             'paper.required' => 'Upload the exam paper as a PDF.',
+            'review_available_at.required_if' => 'Pick the date and time when students can see their incorrect answers.',
         ]);
 
         $questions = $isQuiz ? $this->cleanQuestions($request->input('questions')) : [];
@@ -146,6 +149,11 @@ class ExamController extends Controller
                 'exam_type' => $isQuiz ? 'quiz' : 'paper',
                 'enrol_key' => $request->enrol_key,
                 'duration_minutes' => $request->duration_minutes,
+                // answer review only exists for quizzes; the date only matters for the "date" mode
+                'review_mode' => $isQuiz ? ($request->review_mode ?: Exam::REVIEW_NEVER) : Exam::REVIEW_NEVER,
+                'review_available_at' => $isQuiz && $request->review_mode === Exam::REVIEW_DATE
+                    ? $request->review_available_at
+                    : null,
             ]);
 
             if ($isQuiz) {

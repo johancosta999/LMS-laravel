@@ -83,6 +83,17 @@
                                 </span>
                             @endif
                         </div>
+                        @if ($exam->reviewIsOpen())
+                            <a href="{{ route('student.exam.review', $exam->id) }}" class="btn-forest mt-3">
+                                <i class="bi bi-eye"></i> Review incorrect answers
+                            </a>
+                        @elseif ($exam->allowsReview())
+                            <div class="exam-status is-closed mt-3">
+                                <i class="bi bi-calendar-event"></i>
+                                <span>You can review your incorrect answers from
+                                    <strong>{{ $exam->review_available_at->format('M jS Y, H:i') }}</strong>.</span>
+                            </div>
+                        @endif
                     @elseif ($attempt)
                         {{-- started, not finished --}}
                         @php $attempt->setRelation('exam', $exam); @endphp

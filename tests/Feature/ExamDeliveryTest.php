@@ -179,6 +179,90 @@ class ExamDeliveryTest extends TestCase
         $this->actingAs($this->studentUser)->get(route('student.exam.take', $exam->id))->assertOk()->assertSee('No phones');
     }
 
+    public function test_review_shows_only_wrong_questions_with_correct_answers(): void
+    {
+        $this->actingAs($this->teacherUser)->post(route('exam.createExam'), $this->base([
+            'exam_type' => 'quiz', 'total_marks' => 3, 'review_mode' => 'immediate',
+            'questions' => [
+                ['text' => 'Right one?', 'options' => ['yes', 'no'], 'correct' => [0], 'marks' => 1],
+                ['text' => 'Wrong one?', 'options' => ['apple', 'banana'], 'correct' => [1], 'marks' => 1],
+                ['text' => 'Skipped one?', 'options' => ['x', 'y'], 'correct' => [0], 'marks' => 1],
+            ],
+        ]))->assertSessionHasNoErrors();
+        $exam = Exam::query()->firstOrFail();
+        [$q1, $q2] = $exam->questions()->orderBy('id')->get()->all();
+
+        $this->actingAs($this->studentUser)->post(route('student.exam.start', $exam->id), ['enrol_key' => 'secret']);
+
+        // not available before submitting
+        $this->actingAs($this->studentUser)->get(route('student.exam.review', $exam->id))->assertNotFound();
+
+        $this->actingAs($this->studentUser)->post(route('student.exam.submit', $exam->id), [
+            'answers' => [$q1->id => [0], $q2->id => [0]],
+        ])->assertSessionHas('success');
+
+        $this->actingAs($this->studentUser)->get(route('student.exam.show', $exam->id))
+            ->assertSee(route('student.exam.review', $exam->id), false);
+
+        $this->actingAs($this->studentUser)->get(route('student.exam.review', $exam->id))->assertOk()
+            ->assertDontSee('Right one?')
+            ->assertSeeInOrder(['Wrong one?', 'apple', 'Your answer', 'banana', 'Skipped one?', 'You did not answer this question.'])
+            ->assertSee('1 of 3 questions correct');
+    }
+
+    private function submittedQuiz(array $extra): Exam
+    {
+        $this->actingAs($this->teacherUser)->post(route('exam.createExam'), $this->base(array_merge([
+            'exam_type' => 'quiz', 'total_marks' => 1,
+            'questions' => [['text' => 'q', 'options' => ['a', 'b'], 'correct' => [0], 'marks' => 1]],
+        ], $extra)))->assertSessionHasNoErrors();
+        $exam = Exam::query()->firstOrFail();
+
+        $this->actingAs($this->studentUser)->post(route('student.exam.start', $exam->id), ['enrol_key' => 'secret']);
+        $this->actingAs($this->studentUser)->post(route('student.exam.submit', $exam->id), ['answers' => []]);
+
+        return $exam;
+    }
+
+    public function test_review_is_off_by_default(): void
+    {
+        $exam = $this->submittedQuiz([]);
+        $this->assertSame('never', $exam->review_mode);
+
+        $this->actingAs($this->studentUser)->get(route('student.exam.show', $exam->id))
+            ->assertDontSee('Review incorrect answers');
+        $this->actingAs($this->studentUser)->get(route('student.exam.review', $exam->id))
+            ->assertRedirect(route('student.exam.show', $exam->id))->assertSessionHas('error');
+    }
+
+    public function test_review_opens_on_the_chosen_date(): void
+    {
+        // a date is required for the "date" mode
+        $this->actingAs($this->teacherUser)->post(route('exam.createExam'), $this->base([
+            'exam_type' => 'quiz', 'total_marks' => 1, 'review_mode' => 'date',
+            'questions' => [['text' => 'q', 'options' => ['a', 'b'], 'correct' => [0], 'marks' => 1]],
+        ]))->assertSessionHasErrors('review_available_at');
+
+        $exam = $this->submittedQuiz(['review_mode' => 'date', 'review_available_at' => now()->addDay()->format('Y-m-d\TH:i')]);
+
+        $this->actingAs($this->studentUser)->get(route('student.exam.show', $exam->id))
+            ->assertDontSee('Review incorrect answers')
+            ->assertSee('You can review your incorrect answers from');
+        $this->actingAs($this->studentUser)->get(route('student.exam.review', $exam->id))
+            ->assertRedirect(route('student.exam.show', $exam->id));
+
+        $this->travel(2)->days();
+        $this->actingAs($this->studentUser)->get(route('student.exam.show', $exam->id))
+            ->assertSee('Review incorrect answers');
+        $this->actingAs($this->studentUser)->get(route('student.exam.review', $exam->id))
+            ->assertOk()->assertSee('You did not answer this question.');
+
+        // the teacher's edit form keeps the setting
+        $this->actingAs($this->teacherUser)->get(route('exam.edit', $exam->id))
+            ->assertSee('value="date" selected', false)
+            ->assertSee($exam->review_available_at->format('Y-m-d\TH:i'));
+    }
+
     public function test_late_quiz_submit_scores_zero(): void
     {
         $this->actingAs($this->teacherUser)->post(route('exam.createExam'), $this->base([
